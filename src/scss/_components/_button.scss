@@ -1,0 +1,59 @@
+.btn {
+  @include button-base;
+  font-size: $fs-text14;
+
+  &--yellow {
+    color: $black-text;
+    position: relative;
+    transition: color .5s;
+
+    &::before {
+      @include baseButton-pseudo($bgButton-ticket);
+      z-index: -1;
+
+
+    }
+
+    &::after {
+
+      @include baseButton-pseudo($bgButtonHover-ticket);
+      z-index: -2;
+
+
+    }
+
+    &:hover {
+      color: $white-text;
+      @include hoverButton;
+
+      img {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(0) saturate(7487%) hue-rotate(198deg) brightness(105%) contrast(101%);
+      }
+    }
+
+  }
+
+  &--primary {
+    color: $white-text;
+    position: relative;
+
+    &::before {
+      @include baseButton-pseudo($bgButton-food);
+      z-index: -1;
+    }
+
+    &::after {
+      @include baseButton-pseudo($bgButtonHover-food);
+      z-index: -2;
+
+    }
+
+    &:hover {
+      @include hoverButton;
+    }
+  }
+
+  img {
+    width: 1.8rem;
+  }
+}

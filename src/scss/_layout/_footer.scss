@@ -1,0 +1,222 @@
+.footer {
+  position: relative;
+  background: $bgFooter-color;
+  padding: 5rem 0;
+  width: 100%;
+  font-family: $font-jolesin;
+  z-index: 5;
+
+
+  .footer-title {
+    font-family: $font-antons;
+    color: $white-text;
+    font-size: $fs-text18;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .link {
+    font-size: $fs-text16;
+    color: $white-text;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: color .5s;
+    font-family: inherit;
+
+    &:hover {
+      color: $yellow-text;
+
+    }
+
+  }
+
+  .footer-grid {
+    justify-content: space-between;
+
+    @include lg {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+
+
+    .footer-grow {
+      flex-direction: column;
+      row-gap: 30px;
+
+      .footer-social__list {
+        display: flex;
+        gap: 15px;
+
+        .social-link {
+          img {
+            width: 2.4rem;
+            height: 2.4rem;
+          }
+        }
+      }
+
+    }
+
+    .footer-social {
+
+
+      .footer-logo {
+        width: 160px;
+        height: 58px;
+      }
+
+      .text {
+        font-size: $fs-text14;
+        color: $white-text;
+      }
+
+      .btn-actions {
+        display: flex;
+        gap: 10px;
+
+        .btn-action {
+          width: 15rem;
+        }
+
+        .booking-ticket {
+          color: inherit;
+
+          &:hover {
+            color: $white-text;
+          }
+        }
+
+        .booking-food {
+          border: 1px solid $yellow-text;
+          color: inherit;
+
+
+        }
+      }
+    }
+
+    .footer-info {
+      max-width: none;
+      margin-bottom: 20px;
+    }
+  }
+
+  .footer-mobile {
+    display: none;
+
+    &__xs {
+      display: none;
+    }
+  }
+
+
+
+  @include sm {
+    .footer {
+      position: relative;
+      z-index: -5;
+
+      &-title {
+        color: $yellow-text;
+      }
+
+      &-grid {
+        display: none;
+      }
+
+      &-mobile {
+        display: block;
+        flex-direction: column;
+        width: 100%;
+
+        &__xs {
+          display: none;
+        }
+
+        :where(.css-dev-only-do-not-override-zg0ahe).ant-row {
+          display: block;
+          text-align: center;
+        }
+      }
+
+      &-social {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 0 auto;
+
+        .text {
+          margin: 20px 0;
+        }
+
+        .booking-ticket {
+          margin: 15px 0;
+        }
+
+        &__list {
+          margin: 2rem 0;
+          display: flex;
+          gap: 2rem;
+          justify-content: center;
+
+          img {
+            width: 2.4rem;
+            height: 2.4rem;
+          }
+        }
+      }
+
+      &-grow {
+        .ant-col-8 {
+          max-width: none;
+        }
+
+        .footer-info__movie {
+          margin: 2rem 0;
+        }
+      }
+    }
+
+
+  }
+
+  @include xs {
+
+    .footer-mobile {
+      display: none;
+
+      &__xs {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+
+        .footer-logo {
+          width: 13rem;
+          height: 5rem;
+        }
+
+        .text {
+          color: $white-text;
+          font-size: $fs-text18;
+        }
+
+        .footer__nav {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .nav-link {
+            color: white;
+            font-size: $fs-text16;
+          }
+        }
+      }
+
+
+
+    }
+  }
+
+
+}

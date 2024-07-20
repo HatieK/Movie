@@ -1,0 +1,176 @@
+.bookingTicket {
+  margin-top: 2rem;
+
+  .movie-select {
+    .movie-image {
+      img {
+        width: 90%;
+      }
+
+    }
+
+    .movie-info {
+      .heading {
+        font-family: $font-antons;
+        font-size: $fs-text40;
+        color: $white-text;
+
+        @include xs {
+          font-size: $fs-text30;
+        }
+
+        @include xxs {
+          font-size: $fs-text16;
+          line-height: 30px;
+        }
+      }
+
+      .info-item {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        font-family: $font-jolesin;
+        margin-bottom: 1.5rem;
+
+        .ic {
+          img {
+            width: 2.4rem;
+            height: 2.4rem;
+
+            @include xxs {
+              width: 1.4rem;
+              height: 1.4rem;
+            }
+          }
+        }
+
+        .txt {
+          font-size: $fs-text14;
+          color: $white-text;
+        }
+      }
+
+      .detail {
+        font-family: $font-jolesin;
+
+        @include xs {
+          display: none;
+        }
+
+        span {
+          font-family: $font-antons;
+          font-size: $fs-text20;
+          color: $white-text;
+        }
+
+        .txt {
+          margin-top: 20px;
+          font-size: $fs-text18;
+          color: $white-text;
+        }
+
+        &-content {
+          h2 {
+            margin-top: 3rem;
+            font-family: $font-antons;
+            font-size: $fs-text20;
+            color: $white-text;
+          }
+
+          .txt {
+            letter-spacing: 0.6px;
+          }
+        }
+
+        .info-action {
+          margin-top: 2rem;
+
+          .booking {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            .text {
+              font-family: $font-jolesin;
+              text-decoration: underline;
+
+            }
+          }
+
+          .action-watch {
+            display: flex;
+            align-items: center;
+          }
+
+
+        }
+      }
+    }
+
+    .detail {
+      font-family: $font-jolesin;
+
+      &.bookingTicket-mobile {
+        display: none;
+
+        @include xs {
+          display: block;
+
+          span {
+            margin-top: 2rem;
+            display: inline-block;
+            font-family: $font-antons;
+            font-size: $fs-text16;
+            color: $white-text;
+          }
+
+          .txt {
+            margin-top: 20px;
+            font-size: $fs-text16;
+            color: $white-text;
+          }
+
+          &-content {
+            h2 {
+              margin-top: 3rem;
+              font-family: $font-antons;
+              font-size: $fs-text18;
+              color: $white-text;
+            }
+
+            .txt {
+              letter-spacing: 0.6px;
+            }
+          }
+
+          .info-action {
+            margin-top: 2rem;
+
+            .booking {
+              display: flex;
+              align-items: center;
+              gap: 2rem;
+
+              .text {
+                font-family: $font-jolesin;
+                text-decoration: underline;
+
+              }
+            }
+
+            .action-watch {
+              display: flex;
+              align-items: center;
+            }
+
+
+          }
+        }
+
+
+      }
+
+    }
+  }
+
+}

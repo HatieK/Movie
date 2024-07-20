@@ -1,0 +1,112 @@
+.banner-movie {
+
+  :where(.css-dev-only-do-not-override-zg0ahe) {
+    &.ant-carousel {
+      .slick-dots {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .slick-prev {
+        left: -5rem;
+
+        &::after {
+          width: 30px;
+          height: 30px;
+          color: $bgButton-ticket;
+          border-inline-width: 8px 0;
+          border-block-width: 8px 0;
+
+          @include xxs {
+            width: 10px;
+            height: 10px;
+            border-inline-width: 5px 0;
+            border-block-width: 5px 0;
+          }
+
+        }
+      }
+
+      .slick-next {
+        right: -3rem;
+
+        @include xxs {
+          right: 0px !important;
+        }
+
+        &::after {
+          width: 30px;
+          height: 30px;
+          color: $bgButton-ticket;
+          border-inline-width: 8px 0;
+          border-block-width: 8px 0;
+
+          @include xxs {
+            width: 10px;
+            height: 10px;
+            border-inline-width: 5px 0;
+            border-block-width: 5px 0;
+            right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .banner-item {
+    width: 100%;
+  }
+
+  @media screen and (max-width:1290px) {
+    :where(.css-dev-only-do-not-override-zg0ahe) {
+      &.ant-carousel {
+        .slick-next {
+          right: 28px;
+        }
+
+        .slick-prev {
+          left: 0
+        }
+      }
+    }
+  }
+
+  // @include xs {
+  //   :where(.css-dev-only-do-not-override-zg0ahe) {
+  //     &.ant-carousel {
+  //       .slick-next {
+  //         display: none !important;
+  //       }
+
+  //       .slick-prev {
+  //         display: none !important;
+
+  //       }
+
+  //       .slick-dots {
+  //         opacity: 1;
+  //         visibility: visible;
+
+  //         li {
+  //           width: 30px;
+  //           height: 5px;
+
+  //           &.slick-active {
+
+  //             button {
+
+  //               background: $bgButton-ticket;
+  //             }
+
+  //           }
+
+
+
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+
+}

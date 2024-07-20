@@ -1,0 +1,16 @@
+.navigate-wrap {
+  margin-top: 50px;
+
+  .navigate-filter-item {
+    margin-right: 20px;
+  }
+
+  .navigate-filter-btn {
+    height: 41px;
+
+    .navigate-filter {
+      background: $bgButton-ticket;
+      border-radius: 10px
+    }
+  }
+}

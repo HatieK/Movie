@@ -1,0 +1,247 @@
+.movie-heading {
+  margin-top: 10rem;
+  font-size: $fs-text36;
+  color: $white-text;
+  text-align: center;
+}
+
+.movie-list {
+  margin-top: 50px;
+  margin-bottom: 100px;
+
+
+
+  .card-movie-item {
+
+    .card-movie-box {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+
+
+
+
+      .image {
+        width: 100%;
+        height: 440px;
+
+        @include xs {
+          height: 300px;
+        }
+
+        @media only screen and (max-width: 330px) {
+          height: 250px;
+        }
+      }
+
+      &:hover {
+        .movie-info {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      .movie-info {
+        padding: 15px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, .8);
+        opacity: 0;
+        visibility: hidden;
+        width: 100%;
+        height: 100%;
+        transition: .5s ease-in-out;
+
+
+
+
+
+        .name {
+          width: 240px;
+          text-transform: capitalize;
+          color: $yellow-text;
+          font-size: $fs-text20;
+
+          @include xs {
+            font-size: $fs-text16;
+          }
+
+
+
+        }
+
+        .detail {
+          margin-top: 20px;
+
+          .title {
+            margin-bottom: 10px;
+
+            &-link {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              .title-name {
+                color: $white-text;
+              }
+
+              .ic {
+                img {
+                  width: 30px;
+                  height: 30px;
+                }
+              }
+
+
+            }
+          }
+        }
+      }
+    }
+
+    .info {
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      background: $bgHeader-color;
+      align-items: center;
+
+
+      .movie-name {
+        color: $white-text;
+        font-size: $fs-text20;
+        text-transform: capitalize;
+        height: 50px;
+
+        @include xs {
+          height: 30px;
+          font-size: $fs-text16;
+        }
+
+        @include xxs {
+          font-size: $fs-text14;
+        }
+      }
+
+      &-action {
+        display: flex;
+        gap: 3rem;
+        margin-top: 2rem;
+
+
+
+        .btn--yellow {
+          padding: 12px;
+        }
+
+        .action-watch {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: underline;
+          color: #fff;
+          text-underline-position: under;
+
+          @include xs {
+            display: none;
+          }
+
+          .ic {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 100rem;
+            border: 0.1rem solid white;
+            align-items: center;
+          }
+
+          .txt {
+            color: $white-text;
+          }
+        }
+      }
+    }
+  }
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+
+
+
+  // &-button-prev {
+  //   left: -5rem;
+
+  //   &::after {
+  //     width: 30px;
+  //     height: 30px;
+  //     color: $bgButton-ticket;
+  //     border-inline-width: 8px 0;
+  //     border-block-width: 8px 0;
+
+  //     @include xxs {
+  //       width: 10px;
+  //       height: 10px;
+  //       border-inline-width: 5px 0;
+  //       border-block-width: 5px 0;
+  //     }
+
+  //   }
+  // }
+
+  // &-button-next {
+  //   right: -3rem;
+
+  //   @include xxs {
+  //     right: 0px !important;
+  //   }
+
+  //   &::after {
+  //     width: 30px;
+  //     height: 30px;
+  //     color: $bgButton-ticket;
+  //     border-inline-width: 8px 0;
+  //     border-block-width: 8px 0;
+
+  //     @include xxs {
+  //       width: 10px;
+  //       height: 10px;
+  //       border-inline-width: 5px 0;
+  //       border-block-width: 5px 0;
+  //       right: 0px;
+  //     }
+  //   }
+  // }
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+
+}
+
+.swiper-slide img {
+  display: block;
+}
+
+.swiper-pagination-bullet {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: $white-text;
+  opacity: 0.5;
+
+  &-active {
+    opacity: 1;
+  }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  top: 40%;
+  z-index: 100000;
+}

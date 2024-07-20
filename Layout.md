@@ -1,0 +1,17 @@
+thay đổi 1 block bằng position relative sẽ ko làm thay đổi vị trí của các block khác
+thay đổi 1 block bằng position absolute thì nó sẽ tìm thẻ cha gần nhất có (relative, absolute, sticky, fixed) để có vị trí tương đối theo thẻ cha đó. Lưu ý là thẻ có absolute sẽ ko quan tâm thẻ cha có padding bao nhiêu mà sẽ tính từ rìa ngoài cùng của thẻ cha để đo kích thước
+position fixed sẽ loại bỏ vị trí thông thường của trang và ăn theo root-element của trang
+position sticky sẽ chỉ có tác dụng trong 1 container chứa nó, khi đi ra khỏi container chứa nó sẽ ko còn fixed nữa
+
+useMutation nhận vào object đầu tiên là mutationFn
+onSuccess và onError
+onSuccess để biết khi đã đăng ký xong thì sẽ phải làm gì
+
+khi mutation.mutation nó sẽ chạy vào hàm mutationFn
+
+    trong content là array với các object
+
+questions
+check nếu options là rỗng thì show alert hết suất chiếu,
+tabra vào lại là lại callapi
+đưa mũi tên swiper ra ngoài

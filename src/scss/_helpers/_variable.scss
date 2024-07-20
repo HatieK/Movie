@@ -1,0 +1,64 @@
+// MAIN-COLOR
+
+//============================================================== /* Color */ =================================================================
+$black-text: #0f172a;
+$white-text: #f8fafc;
+$purple-text: #639;
+$mobileNav-text: #cbd5e1;
+$yellow-text: #f3ea28;
+$red-text: #fa8072;
+
+
+//============================================================== /* Background Color */ =================================================================
+$bgHeader-color: #0f172a;
+$bgFooter-color: #5444aa;
+$bgButton-ticket: #f3ea28;
+$bgButton-food: #639;
+$bgButtonHover-ticket: linear-gradient(106deg, #639, #36c 102.69%);
+$bgButtonHover-food: linear-gradient(90deg, #ff6d00, #ffc107);
+$border-mobile: #fff;
+
+//============================================================== /* Font Size */ =================================================================
+$fs-text14: 1.4rem;
+$fs-text16: 1.6rem;
+$fs-text18: 1.8rem;
+$fs-text20: 2rem;
+$fs-text30: 3rem;
+$fs-text36: 3.6rem;
+$fs-text40: 4rem;
+$text-uppercase: uppercase;
+$text-capitalize: capitalize;
+/* ------------------------------ Boxed Layout ------------------------------ */
+$container-max-width: 1200px;
+
+
+/*========================================= */
+$pdFooter-top: 10rem;
+/*================================*/
+$height-header: 14rem;
+
+/*FONT FAMILY*/
+$font-antons: "Antons";
+$font-jolesin: "Jolesins";
+/* ------------------------------- Grid Media ------------------------------- */
+$xxs-min: 576px;
+$xs-min: 768px;
+$sm-min: 992px;
+$md-min: 1200px;
+$lg-min: 1560px;
+
+$xxs-max: (
+    $xxs-min - 1
+); // Small Mobile
+$xs-max: (
+    $xs-min - 1
+); // Mobile
+$sm-max: (
+    $sm-min - 1
+); // Tablet
+$md-max: (
+    $md-min - 1
+); // Desktop
+$lg-max: (
+    $lg-min - 1
+); // Large Desktop

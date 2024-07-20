@@ -1,0 +1,32 @@
+//Helpers
+@import "./_base/reset";
+@import "./_helpers/variable";
+@import "./_helpers/responsive";
+@import "./_base/layout";
+@import "./_helpers/mixin";
+@import "./_fonts/fonts";
+
+//Venders
+
+//Base
+
+//Component
+@import "./_components/button";
+@import "./_components/headerMobile";
+@import "./_components/form";
+@import "./_components/loginForm";
+@import "./_components/cardFilm";
+@import "./_components/banner";
+@import "./_components/navigateFilter";
+//
+
+//Fonts
+//Layout
+@import "./_layout/footer";
+
+
+
+//Pages
+@import "./_pages/header";
+@import "./_pages/bookingTicket";
+@import "./_pages/homePage"

@@ -1,0 +1,179 @@
+.register {
+  background-image: url("../../../public/img/bgAuth.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
+  padding-top: $height-header;
+
+  &-modal {
+    margin: 0 auto;
+    padding: 30px 60px;
+    width: 600px;
+    z-index: 1;
+    position: relative;
+    border-radius: 6px;
+    background-image: linear-gradient(to bottom, rgba(20, 50, 93, .9), rgba(8, 22, 48, .9));
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .register-title {
+        color: $yellow-text;
+        font-family: $font-jolesin;
+        font-size: $fs-text18;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        line-height: 2rem;
+
+      }
+
+      .register-login {
+        color: red;
+        margin-left: 10px;
+      }
+
+    }
+
+    .register-logo {
+      width: 17rem;
+      height: 8rem;
+      margin: 0 auto;
+    }
+
+    .btn-register {
+      margin-left: 40%;
+      @include button-base;
+      background: $bgButton-food;
+      cursor: pointer;
+      border-radius: 5px;
+      position: relative;
+      width: 150px;
+      margin: 20px auto 0 auto;
+
+
+
+      &::before {
+        @include baseButton-pseudo($bgButton-ticket);
+        z-index: -1;
+      }
+
+      &::after {
+        @include baseButton-pseudo($bgButtonHover-ticket);
+        z-index: -2
+      }
+
+      &:hover {
+        @include hoverButton
+      }
+    }
+  }
+
+  .form {
+    .form-group {
+      .form-label {
+        display: block;
+        color: $yellow-text;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: $fs-text18;
+      }
+
+      .form-input {
+        width: 100%;
+        border-radius: 5px;
+        outline: none;
+        padding: 4px 20px;
+        height: 4rem;
+
+        &:focus {
+          border: 2px solid aqua;
+        }
+      }
+
+      .text-danger {
+        color: $red-text;
+        margin-top: 10px;
+        font-size: $fs-text16;
+
+
+      }
+    }
+
+    @include xs {
+      width: 400px;
+    }
+
+    @include xxs {
+      width: 300px;
+    }
+  }
+
+  @include sm {}
+
+  @include xs {
+    padding-top: 8rem;
+
+    &-logo {
+      display: none;
+    }
+
+    &-modal {
+      width: 500px;
+    }
+  }
+
+  @include xxs {
+    &-modal {
+      width: 400px;
+      padding: 5px;
+      z-index: 0;
+
+      &-content {
+        .register-title {
+          font-size: $fs-text14;
+        }
+      }
+    }
+
+    .form {
+      width: 250px;
+      margin: 0 auto;
+
+      &-group {
+        .form-label {
+          margin-top: 0;
+          font-size: $fs-text14;
+        }
+      }
+    }
+  }
+
+  @media (max-width:430px) {
+    &-modal {
+      width: 280px;
+      padding: 5px;
+      z-index: 0;
+
+      &-content {
+        .register-title {
+          font-size: $fs-text14;
+        }
+      }
+    }
+
+    .form {
+      width: 250px;
+      margin: 0 auto;
+
+      &-group {
+        .form-label {
+          margin-top: 0;
+          font-size: $fs-text14;
+        }
+      }
+    }
+  }
+}
