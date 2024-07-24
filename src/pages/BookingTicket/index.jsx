@@ -1,22 +1,105 @@
-import React from "react";
-import { Col, Row } from "antd";
+import React, { act, useEffect, useRef, useState } from "react";
+import { Col, Empty, Row } from "antd";
 import { useSelector } from "react-redux";
 import { movieListApi } from "../../apis/movieList.api";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import ComponentLoading from "../../components/Loading";
+import moment from "moment/moment";
+import { THEATER_DETAIL, THEATER_DETAIL_SEGMENT } from "../../constants/path";
+
+const extractShowtimes = (data) => {
+  let result = [];
+
+  data.forEach((heThongRap) => {
+    heThongRap.cumRapChieu.forEach((cumRap) => {
+      cumRap.lichChieuPhim.forEach((lichChieu) => {
+        const { maLichChieu, maRap, tenRap, ngayChieuGioChieu, thoiLuong } =
+          lichChieu;
+        const ngayChieu = ngayChieuGioChieu.split("T")[0];
+        const gioChieu = ngayChieuGioChieu.split("T")[1];
+        const { tenCumRap, diaChi } = cumRap;
+
+        result.push({
+          maLichChieu,
+          maRap,
+          tenRap,
+          ngayChieu,
+          gioChieu,
+          thoiLuong,
+          tenCumRap,
+          diaChi,
+        });
+      });
+    });
+  });
+
+  return result;
+};
 
 const BookingTicket = () => {
-  const params = useParams();
-  console.log("🚀params---->", params);
-  const { movieId, theaterId } = useSelector((state) => state.bookingTicket);
+  const {
+    data: dataScheduleMovie,
+    isLoading: scheduleMovieLoading,
+    error: scheduleMovieError,
+  } = useQuery({
+    queryKey: ["schedule-movie"],
+    queryFn: () => movieListApi.getScheduleMovieList(slug),
+  });
+  const [showTimes, setShowTimes] = useState([]);
+  const [uniqueDates, setUniqueDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [scheduleInfo, setScheduleInfo] = useState(null);
+
+  const [dateFiltered, setFiltered] = useState("");
+
+  useEffect(() => {
+    if (dataScheduleMovie) {
+      const showTimes = extractShowtimes(dataScheduleMovie.heThongRapChieu);
+      setShowTimes(showTimes);
+      const uniqueDates = [
+        ...new Set(showTimes.map((showTime) => showTime.ngayChieu)),
+      ];
+      setUniqueDates(uniqueDates);
+      setSelectedDate(uniqueDates[0]);
+    }
+  }, [dataScheduleMovie]);
+
+  const { slug } = useParams();
+  const { movieId } = useSelector((state) => state.bookingTicket);
   const { data: dataMovieDetail, isLoading: dateMovieDetailLoading } = useQuery(
     {
       queryKey: ["movie-detail", movieId],
-      queryFn: () => {
-        return movieListApi.getDetailMovie(movieId);
-      },
+      queryFn: () => movieListApi.getDetailMovie(slug),
     }
   );
+
+  if (scheduleMovieLoading) {
+    return <ComponentLoading />;
+  }
+
+  if (!dataScheduleMovie) {
+    return <Empty description="KHÔNG CÓ DỮ LIỆU" />;
+  }
+
+  const filterShowTimes = showTimes.filter(
+    (showTime) => showTime.ngayChieu === selectedDate
+  );
+  console.log("🚀filterShowTimes---->", filterShowTimes);
+
+  // const    = (dateValue) => {
+  //   filterShowTimes.forEach((item) => {
+  //     if (item.ngayChieu === dateValue) {
+  //       setActiveDate(!activeDate);
+  //     } else {
+  //       setActiveDate(false);
+  //     }
+  //   });
+  // };
+
+  const handleBookingTicket = (value) => {
+    console.log("🚀value---->", value);
+  };
 
   const templateReview =
     "Inception là một kiệt tác của đạo diễn Christopher Nolan, mang đến một trải nghiệm điện ảnh đầy kích thích và sâu sắc. Với cốt truyện phức tạp xoay quanh việc xâm nhập vào giấc mơ, phim cuốn hút khán giả từ đầu đến cuối. Leonardo DiCaprio thể hiện xuất sắc vai Dom Cobb, một chuyên gia trộm giấc mơ, mang đến sự căng thẳng và cảm xúc mãnh liệt. Hiệu ứng hình ảnh và âm thanh đỉnh cao, cùng với âm nhạc của Hans Zimmer, tạo nên một không gian mơ ảo và đầy mê hoặc. Inception là một bộ phim không thể bỏ qua cho những ai yêu thích điện ảnh.";
@@ -70,7 +153,10 @@ const BookingTicket = () => {
                           Diễn Viên: Anthony Ramos, Naomi Scott, Kristofer Hivju
                         </p>
                         <p className="txt">
-                          Khởi Chiếu: {dataMovieDetail?.ngayKhoiChieu}
+                          Khởi Chiếu:{" "}
+                          {moment(dataMovieDetail?.ngayKhoiChieu).format(
+                            "DD/MM/YYYY"
+                          )}
                         </p>
                         <div className="detail-content">
                           <h2>NỘI DUNG PHIM</h2>
@@ -128,11 +214,74 @@ const BookingTicket = () => {
                 </div>
               </Col>
             </div>
+            {dataScheduleMovie.dangChieu === false ? (
+              <div className="container-ticket">
+                <div className="movie-schedule">
+                  <h2 className="heading">LỊCH CHIẾU</h2>
+                  <div className="schedule-list">
+                    {uniqueDates.map((item, index) => {
+                      return (
+                        // <div
+                        //   className={`time ${activeDate ? "active" : ""}`}
+                        //   key={item}
+                        //   onClick={() => handleDateClick(item)}
+                        // >
+                        //   <p className="time-month">
+                        //     {moment(item).format("DD/MM")}
+                        //   </p>
+                        // </div>
+                        <DateTime
+                          item={item}
+                          isActive={item === dateFiltered}
+                          onChange={(item) => setFiltered(item)}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="theater-list">
+                  <h2 className="heading">DANH SÁCH RẠP</h2>
+                  {filterShowTimes.map((item, index) => {
+                    const theaterDetail =
+                      THEATER_DETAIL + `/${item.maLichChieu}`;
+                    return (
+                      <div key={index} className="theater-info">
+                        <p className="name">{item.tenCumRap}</p>
+                        <p className="address">{item.diaChi}</p>
+                        <Link
+                          className="hour"
+                          to={theaterDetail}
+                          onClick={() => handleBookingTicket(item.maLichChieu)}
+                        >
+                          {item.gioChieu}
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div>KHÔNG CÓ LỊCH CHIẾU</div>
+            )}
           </div>
         </div>
       </div>
     );
   }
+};
+
+const DateTime = ({ item, onChange, isActive }) => {
+  return (
+    <div
+      className={`time ${isActive ? "active" : ""}`}
+      key={item}
+      onClick={() => {
+        onChange(item);
+      }}
+    >
+      <p className="time-month">{moment(item).format("DD/MM")}</p>
+    </div>
+  );
 };
 
 export default BookingTicket;

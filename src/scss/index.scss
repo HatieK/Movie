@@ -18,6 +18,7 @@
 @import "./_components/cardFilm";
 @import "./_components/banner";
 @import "./_components/navigateFilter";
+@import "./_components/componentLoading";
 //
 
 //Fonts
@@ -29,4 +30,5 @@
 //Pages
 @import "./_pages/header";
 @import "./_pages/bookingTicket";
-@import "./_pages/homePage"
+@import "./_pages/homePage";
+@import "./_pages/roomSeatsList";

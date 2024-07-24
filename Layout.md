@@ -13,5 +13,13 @@ khi mutation.mutation nó sẽ chạy vào hàm mutationFn
 
 questions
 check nếu options là rỗng thì show alert hết suất chiếu,
-tabra vào lại là lại callapi
+tabra vào lại là lại callapi trong homepage
 đưa mũi tên swiper ra ngoài
+dùng component loading
+ko làm được useRef chọn ghế
+reset rạp phim phải reset ghế đã đặt
+làm sao cập nhật ghế đã đặt
+
+click vào ghế: màu trắng ghế thường
+màu vàng ghế vip khi render
+ghế đã đặt: xanh lá

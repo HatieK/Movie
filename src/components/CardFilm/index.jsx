@@ -27,7 +27,11 @@ const CardFilm = ({ dataCardFilm }) => {
                 <span className="ic">
                   <img src="../../../public/img/icon-tag.svg" alt="" />
                 </span>
-                <span className="title-name">Phim Đang Chiếu</span>
+                {dataCardFilm.dangChieu === true ? (
+                  <span className="title-name">Phim Sắp Chiếu</span>
+                ) : (
+                  <span className="title-name">Phim Đang Chiếu</span>
+                )}
               </a>
             </li>
             <li className="title">
@@ -57,7 +61,11 @@ const CardFilm = ({ dataCardFilm }) => {
             link={detailMovie}
             onClick={() => handleBookingTicket(dataCardFilm.maPhim)}
           >
-            <span>Đặt vé ngay</span>
+            {dataCardFilm.sapChieu === true ? (
+              <span>Đặt Vé Ngay</span>
+            ) : (
+              <span>Tìm Hiểu Thêm</span>
+            )}
           </Button>
         </div>
       </div>

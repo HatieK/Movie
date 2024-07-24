@@ -10,6 +10,7 @@ const handleBookingTicketPage = createSlice({
   initialState,
   reducers: {
     showMovieDetail: (state, action) => {
+      console.log("🚀action.payload---->", action.payload);
       state.movieId = action.payload;
     },
     showTheaterDetail: (state, action) => {

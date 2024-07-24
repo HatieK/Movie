@@ -8,15 +8,15 @@ import {
   ADMIN_PATH,
   AUTH_PATH,
   HOME_PATH,
-  MOVIE_DETAIL,
-  TICKET_BOOKING_PATH,
-  TICKET_DETAIL,
+  MOVIE_DETAIL_SEGMENT,
+  THEATER_DETAIL_SEGMENT,
+  TICKET_BOOKING_SEGMENT,
 } from "../constants/path";
 import { useSelector } from "react-redux";
+import RoomSeatList from "../pages/RoomSeatList";
 
 export const RejectedRoutes = () => {
   const { pathName } = useSelector((state) => state.pathNameLogin);
-  console.log("🚀pathName---->", pathName);
 
   const { currentUser } = useSelector((state) => state.authenticUser);
 
@@ -43,8 +43,9 @@ const useRoutesElements = () => {
     },
     // { path: HOME_PATH, index: true, element: <HomePage /> },
     { path: AUTH_PATH, element: <AuthPage /> },
-    { path: TICKET_BOOKING_PATH, element: <BookingTicket /> },
-    { path: MOVIE_DETAIL, element: <MovieDetail /> },
+    { path: TICKET_BOOKING_SEGMENT, element: <BookingTicket /> },
+    { path: MOVIE_DETAIL_SEGMENT, element: <MovieDetail /> },
+    { path: THEATER_DETAIL_SEGMENT, element: <RoomSeatList /> },
   ]);
 
   return routes;

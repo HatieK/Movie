@@ -173,4 +173,103 @@
     }
   }
 
+  .container-ticket {
+    width: 67%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .movie-schedule {
+    margin-top: 10rem;
+
+    .heading {
+      font-size: $fs-text40;
+      color: $white-text;
+      text-align: center;
+      margin-bottom: 24px;
+      font-family: $font-antons;
+    }
+
+    .schedule-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+
+      .time {
+        margin: 0 auto;
+        padding: 20px;
+        background: transparent;
+        width: 100px;
+        border: 1px solid $bgButton-ticket;
+        text-align: center;
+        cursor: pointer;
+
+        &.active {
+          background: $bgButton-ticket;
+
+          .time-month {
+            color: $bgFooter-color;
+          }
+        }
+
+
+
+
+
+        &-month {
+          font-size: 2rem;
+          color: $yellow-text;
+          margin-bottom: 1rem;
+
+        }
+
+        &-day {
+          color: $bgFooter-color
+        }
+      }
+    }
+
+
+  }
+
+  .theater-list {
+    margin-top: 3rem;
+
+    .heading {
+      font-size: $fs-text30;
+      color: $white-text;
+      margin-bottom: 24px;
+      font-family: $font-antons;
+    }
+
+    .theater-info {
+      margin-top: 2rem;
+      background: $bgButton-food;
+      padding: 2.4rem;
+      margin-bottom: 5rem;
+    }
+
+    .name {
+      color: $yellow-text;
+      font-size: 2.4rem;
+      font-weight: bold;
+    }
+
+    .address {
+      font-size: 1.6rem;
+      color: $white-text;
+      margin: 2rem 0;
+    }
+
+    .hour {
+      display: inline-block;
+      padding: 8px;
+      border: 1px solid forestgreen;
+      color: $bgButton-ticket;
+      font-size: 1.6rem;
+    }
+  }
+
+
 }

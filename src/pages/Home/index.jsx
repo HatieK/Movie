@@ -7,14 +7,16 @@ import { Col, Row, Select } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { movieListApi } from "../../apis/movieList.api";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { TICKET_BOOKING_PATH } from "../../constants/path";
+import {
+  TICKET_BOOKING_PATH,
+  TICKET_BOOKING_SEGMENT,
+} from "../../constants/path";
 import {
   showMovieDetail,
   showTheaterDetail,
 } from "../../redux/slices/dataMovie";
 import Button from "../../components/Button";
-import { setLocalStorage } from "../../utils/saveAccount";
+import ComingSoon from "./ComingSoon";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -41,67 +43,17 @@ const HomePage = () => {
   });
   const [disableButton, setDisableButton] = useState(false);
 
+  /*=============================================================CALL API================================ */
+
   const { data: dataMovieList, isLoading: dataMovieListLoading } = useQuery({
     queryKey: ["movie-list"],
     queryFn: () => movieListApi.getListMovie(),
   });
 
-  const { data: scheduleMovieList, isLoading: scheduleMovieListLoading } =
-    useQuery({
-      queryKey: ["scheduleMovie-list", filterSelectList.movie.value],
-      queryFn: () =>
-        movieListApi.getScheduleMovieList(filterSelectList.movie.value),
-    });
+  const comingSoon = showingMovieList.filter((item) => item.sapChieu === false);
+  const showingNow = showingMovieList.filter((item) => item.sapChieu === true);
+  console.log("🚀showingNow---->", showingNow);
 
-  const dataMovie = dataMovieList?.map((item) => {
-    return {
-      value: item.maPhim,
-      label: item.tenPhim.toUpperCase(),
-    };
-  });
-
-  const { heThongRapChieu = [] } = scheduleMovieList || {};
-  const dataTheaterList = heThongRapChieu.map((item) => {
-    return {
-      value: item.maHeThongRap,
-      label: item.tenHeThongRap,
-    };
-  });
-
-  const theaterItem = heThongRapChieu.map((item) => {
-    return item.cumRapChieu;
-  });
-
-  const extractShowtimes = (data) => {
-    const showtimes = [];
-
-    data.forEach((theaterArray) => {
-      theaterArray.forEach((theater) => {
-        theater.lichChieuPhim.forEach((show) => {
-          const { ngayChieuGioChieu, maLichChieu } = show;
-          const [date, time] = ngayChieuGioChieu.split("T");
-          showtimes.push({ date, time, maLichChieu });
-        });
-      });
-    });
-
-    return showtimes;
-  };
-
-  const extractShowTimeList = extractShowtimes(theaterItem);
-  const finalDateList = extractShowTimeList.map((item) => {
-    return {
-      value: item.maLichChieu,
-      label: item.date,
-    };
-  });
-
-  const finalShowTimeList = extractShowTimeList.map((item) => {
-    return {
-      value: item.maLichChieu,
-      label: item.time,
-    };
-  });
   const getBannerMovie = async () => {
     try {
       const response = await fetcher.get("/QuanLyPhim/LayDanhSachBanner");
@@ -140,6 +92,66 @@ const HomePage = () => {
     } catch (error) {}
   };
 
+  const { data: scheduleMovieList, isLoading: scheduleMovieListLoading } =
+    useQuery({
+      queryKey: ["scheduleMovie-list", filterSelectList.movie.value],
+      queryFn: () =>
+        movieListApi.getScheduleMovieList(filterSelectList.movie.value),
+    });
+
+  const dataMovie = dataMovieList?.map((item) => {
+    return {
+      value: item.maPhim,
+      label: item.tenPhim.toUpperCase(),
+    };
+  });
+
+  const { heThongRapChieu = [] } = scheduleMovieList || {};
+
+  const dataTheaterList = heThongRapChieu.map((item) => {
+    return {
+      value: item.maHeThongRap,
+      label: item.tenHeThongRap,
+    };
+  });
+
+  const theaterItem = heThongRapChieu.map((item) => {
+    return item.cumRapChieu;
+  });
+
+  /*=============================================================CALL API================================ */
+
+  const extractShowtimes = (data) => {
+    const showtimes = [];
+
+    data.forEach((theaterArray) => {
+      theaterArray.forEach((theater) => {
+        theater.lichChieuPhim.forEach((show) => {
+          const { ngayChieuGioChieu, maLichChieu } = show;
+          const [date, time] = ngayChieuGioChieu.split("T");
+          showtimes.push({ date, time, maLichChieu });
+        });
+      });
+    });
+
+    return showtimes;
+  };
+
+  const extractShowTimeList = extractShowtimes(theaterItem);
+  const finalDateList = extractShowTimeList.map((item) => {
+    return {
+      value: item.maLichChieu,
+      label: item.date,
+    };
+  });
+
+  const finalShowTimeList = extractShowTimeList.map((item) => {
+    return {
+      value: item.maLichChieu,
+      label: item.time,
+    };
+  });
+
   const handleChangeNavigate = (name, value) => {
     setFilterSelectList({
       ...filterSelectList,
@@ -168,6 +180,7 @@ const HomePage = () => {
     dispatch(showMovieDetail(filterSelectList.movie.value));
     dispatch(showTheaterDetail(filterSelectList.date.value));
   };
+  const detailMovie = TICKET_BOOKING_PATH + `/${filterSelectList.movie.value}`;
 
   useEffect(() => {
     getBannerMovie();
@@ -188,9 +201,6 @@ const HomePage = () => {
             <Col className="navigate-filter-item">
               <Select
                 showSearch
-                style={{
-                  width: 200,
-                }}
                 // searchValue="theater"
                 optionFilterProp="label"
                 filterSort={(optionA, optionB) =>
@@ -206,9 +216,6 @@ const HomePage = () => {
             <Col className="navigate-filter-item">
               <Select
                 showSearch
-                style={{
-                  width: 200,
-                }}
                 optionFilterProp="label"
                 filterSort={(optionA, optionB) =>
                   (optionA?.label ?? "")
@@ -226,9 +233,6 @@ const HomePage = () => {
             <Col className="navigate-filter-item">
               <Select
                 showSearch
-                style={{
-                  width: 200,
-                }}
                 optionFilterProp="label"
                 filterSort={(optionA, optionB) =>
                   (optionA?.label ?? "")
@@ -246,9 +250,6 @@ const HomePage = () => {
             <Col className="navigate-filter-item">
               <Select
                 showSearch
-                style={{
-                  width: 200,
-                }}
                 placeholder="CHỌN SUẤT"
                 optionFilterProp="label"
                 options={finalShowTimeList}
@@ -268,7 +269,7 @@ const HomePage = () => {
               <Button
                 class={`${disableButton ? "navigate-filter" : ""} btn`}
                 onClick={() => handleBookingTicket()}
-                to={disableButton ? TICKET_BOOKING_PATH : ""}
+                to={disableButton ? detailMovie : ""}
               >
                 <img src="../public/img/ic-ticket.svg" alt="cine-start" />
                 <span>Đặt vé ngay</span>
@@ -277,7 +278,8 @@ const HomePage = () => {
           </Row>
         </div>
       </Row>
-      <ShowingMovie showingMovieList={showingMovieList} />
+      <ShowingMovie showingMovieList={showingNow} />
+      <ComingSoon comingSoon={comingSoon} />
     </div>
   );
 };
