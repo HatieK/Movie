@@ -3,6 +3,7 @@ import Button from "../Button";
 import { useDispatch } from "react-redux";
 import { TICKET_BOOKING_PATH } from "../../constants/path";
 import { showMovieDetail } from "../../redux/slices/dataMovie";
+import { Link } from "react-router-dom";
 
 const CardFilm = ({ dataCardFilm }) => {
   const dispatch = useDispatch();
@@ -54,7 +55,9 @@ const CardFilm = ({ dataCardFilm }) => {
             <span className="ic">
               <img src="../../../public/img/icon-play-vid.svg" alt="" />
             </span>
-            <span className="txt">Xem Trailer</span>
+            <Link to={dataCardFilm.trailer}>
+              <span className="txt">Xem Trailer</span>
+            </Link>
           </a>
           <Button
             variant="btn--yellow"

@@ -1,16 +1,20 @@
 import React from "react";
 import Button from "../Button";
+import { useNavigate } from "react-router-dom";
+import { HOME_PATH } from "../../constants/path";
 
 const HeaderTopAction = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    console.log("🚀333---->", 333);
+    navigate(`${HOME_PATH}#navigate-wrap`);
+  };
+
   return (
     <div className="header-top-actions">
-      <Button link="/ticket-booking" variant="btn--yellow">
+      <Button link="#" onClick={handleClick} variant="btn--yellow">
         <img src="../public/img/ic-ticket.svg" alt="cine-start" />
         <span>Đặt vé ngay</span>
-      </Button>
-      <Button variant="btn--primary">
-        <img src="../public/img/ic-cor.svg" alt="cine-start" />
-        <span>Đặt bắp nước</span>
       </Button>
     </div>
   );

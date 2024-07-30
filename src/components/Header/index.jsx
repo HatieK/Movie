@@ -1,11 +1,9 @@
-import HeaderTopAction from "./HeaderTopAction";
 import HeaderTopRight from "./HeaderTopRight";
-import HeaderMobileSelect from "./HeaderMobileSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { handleShowNavbar } from "../../redux/slices/showHamburger";
 import HeaderMobile from "../HeaderMobile";
-import HeaderBottom from "./HeaderBottom";
 import { Link } from "react-router-dom";
+import { THEATER_DETAIL } from "../../constants/path";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,6 +19,8 @@ const Header = () => {
     dispatch(handleShowNavbar());
   };
 
+  const theaterDetail = THEATER_DETAIL;
+
   return (
     <>
       <header className="header">
@@ -33,7 +33,6 @@ const Header = () => {
                   alt="cine start"
                 />
               </Link>
-              <HeaderTopAction />
               <HeaderTopRight />
             </div>
             <div className="header-mobile">
@@ -44,9 +43,7 @@ const Header = () => {
                     alt="cine start"
                   />
                 </a>
-                <div className="mobile-select">
-                  <HeaderMobileSelect />
-                </div>
+
                 <div className="mobile-burger" style={{ color: "red" }}>
                   <div
                     className={`burger ${showNavbar ? "active" : ""}`}
@@ -59,41 +56,10 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            <HeaderBottom />
           </div>
         </div>
       </header>
       <HeaderMobile />
-      <div className="mobile-navbar-bottom">
-        <nav className="menu-nav">
-          <ul className="menu-list">
-            <li className="menu-item active">
-              <a href="" className="menu-link">
-                Lịch Chiếu
-                <i className="fa-solid fa-film"></i>
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="" className="menu-link">
-                Đặt Vé
-                <i className="fa-solid fa-ticket"></i>
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="" className="menu-link">
-                <img src="../../../public/img/ic-cor.svg" alt="" />
-                Bắp Nước
-              </a>
-            </li>
-            <li className="menu-item">
-              <a href="" className="menu-link">
-                Tài Khoản
-                <i className="fa-solid fa-user"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </>
   );
 };

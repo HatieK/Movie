@@ -15,7 +15,6 @@ export const bookingTheaterInfo = {
   getTheaterList: async () => {
     try {
       const response = await fetcher.get(`/QuanLyRap/LayThongTinHeThongRap`);
-      console.log("🚀response---->", response);
       return response.data.content;
     } catch (error) {
       console.log("🚀error---->", error);

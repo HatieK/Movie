@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { HOME_PATH } from "../../constants/path";
+import { Link } from "react-router-dom";
 
 const HeaderMobile = () => {
   const { showNavbar } = useSelector((state) => state.burger);
@@ -31,19 +33,9 @@ const HeaderMobile = () => {
             <nav className="menu-nav">
               <ul className="menu-list">
                 <li className="menu-item active">
-                  <a href="#" className="nav-link">
+                  <Link to={HOME_PATH} className="nav-link">
                     TRANG CHỦ
-                  </a>
-                </li>
-                <li className="menu-item">
-                  <a href="#" className="nav-link">
-                    ĐẶT VÉ
-                  </a>
-                </li>
-                <li className="menu-item">
-                  <a href="#" className="nav-link">
-                    LỊCH CHIẾU
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu-item">
                   <a href="" className="nav-link">

@@ -23,6 +23,7 @@
       height: 100%;
       gap: 8rem;
       position: relative;
+      justify-content: center;
 
     }
 
@@ -42,7 +43,6 @@
       display: flex;
       align-items: center;
       gap: 3.6rem;
-      margin-left: auto;
 
       .header-top-search {
         .header-search {
@@ -256,7 +256,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
+
+        @include xxs {
+
+          width: 100%;
+
+        }
 
         .mobile-select {
           border: 1px solid blue;
@@ -287,6 +292,7 @@
         }
 
         .mobile-burger {
+
           .burger {
             display: flex;
             flex-direction: column;
@@ -374,10 +380,13 @@
       position: fixed;
       bottom: 0;
       height: 7rem;
-      width: 100%;
       padding: 2rem 1rem;
       display: block;
       z-index: 20;
+
+      @include xxs {
+        width: 68%;
+      }
 
       .menu-list {
         display: flex;
@@ -420,5 +429,5 @@
     }
   }
 
-  @include xxs {}
+
 }

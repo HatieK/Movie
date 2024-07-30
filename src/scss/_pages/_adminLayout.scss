@@ -1,0 +1,17 @@
+.ant-layout {
+  height: 100vh;
+}
+
+.userManagement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+
+}
+
+.heading {
+  color: $bgFooter-color;
+  font-size: $fs-text20;
+  font-weight: bold;
+}

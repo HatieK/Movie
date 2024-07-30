@@ -1,6 +1,10 @@
 export const minLength = 5;
 export const maxLength = 10;
-
+export const PAGE_SIZE = 10;
+export const USER_TYPES_MAPPING = {
+  KhachHang: "User",
+  QuanTri: "Admin",
+};
 export const ERROR_MESSAGE = {
   name: {
     required: "Tên không được để trống",
@@ -30,4 +34,4 @@ export const ERROR_MESSAGE = {
   },
 };
 
-export const GROUP_CODE = "GP03";
+export const GROUP_CODE = "GP01";

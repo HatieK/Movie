@@ -9,27 +9,25 @@ import { authenticationApi } from "../../apis/authen.login";
 import { setLocalStorage } from "../../utils/saveAccount";
 import { useDispatch } from "react-redux";
 import { setUsers } from "../../redux/slices/userSlice";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { changePathName } from "../../redux/slices/pathLogin";
+import { HOME_PATH } from "../../constants/path";
 
 const schema = yup.object({
-  name: yup
-    .string()
-    .trim()
-    .required(ERROR_MESSAGE.name.required)
-    .min(minLength, ERROR_MESSAGE.name.minLength)
-    .max(maxLength, ERROR_MESSAGE.name.maxLength),
-  password: yup
-    .string()
-    .trim()
-    .notRequired()
-    .required(ERROR_MESSAGE.password.required)
-    .matches(ERROR_MESSAGE.password.regex, ERROR_MESSAGE.password.errorRegex),
+  name: yup.string().trim(),
+  // .required(ERROR_MESSAGE.name.required)
+  // .min(minLength, ERROR_MESSAGE.name.minLength)
+  // .max(maxLength, ERROR_MESSAGE.name.maxLength),
+  password: yup.string().trim(),
+  // .notRequired()
+  // .required(ERROR_MESSAGE.password.required)
+  // .matches(ERROR_MESSAGE.password.regex, ERROR_MESSAGE.password.errorRegex),
 });
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -63,7 +61,9 @@ const LoginForm = () => {
       matKhau: value.password,
     };
     handleLogin(payload);
+
     dispatch(changePathName(pathname));
+    navigate(HOME_PATH);
   };
 
   return (

@@ -20,6 +20,9 @@ ko làm được useRef chọn ghế
 reset rạp phim phải reset ghế đã đặt
 làm sao cập nhật ghế đã đặt
 
-click vào ghế: màu trắng ghế thường
-màu vàng ghế vip khi render
-ghế đã đặt: xanh lá
+tạo 1 mảng state chứa các ghế
+click vào 1 ghế, cho ghế đó vào mảng và active
+click ghế khác, check mảng, chưa có thì thêm vào và active
+
+nếu seatId tồn tại trong mảng thì active
+ko tồn tại thì remove active

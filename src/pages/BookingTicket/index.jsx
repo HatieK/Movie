@@ -1,12 +1,17 @@
 import React, { act, useEffect, useRef, useState } from "react";
-import { Col, Empty, Row } from "antd";
+import { Col, Empty, message, Row } from "antd";
 import { useSelector } from "react-redux";
 import { movieListApi } from "../../apis/movieList.api";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import ComponentLoading from "../../components/Loading";
 import moment from "moment/moment";
-import { THEATER_DETAIL, THEATER_DETAIL_SEGMENT } from "../../constants/path";
+import {
+  AUTH_PATH,
+  THEATER_DETAIL,
+  THEATER_DETAIL_SEGMENT,
+} from "../../constants/path";
+import DateTimeButtonActive from "./DateTimeButtonActive";
 
 const extractShowtimes = (data) => {
   let result = [];
@@ -38,6 +43,8 @@ const extractShowtimes = (data) => {
 };
 
 const BookingTicket = () => {
+  const { currentUser } = useSelector((state) => state.authenticUser);
+
   const {
     data: dataScheduleMovie,
     isLoading: scheduleMovieLoading,
@@ -49,7 +56,6 @@ const BookingTicket = () => {
   const [showTimes, setShowTimes] = useState([]);
   const [uniqueDates, setUniqueDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
-  const [scheduleInfo, setScheduleInfo] = useState(null);
 
   const [dateFiltered, setFiltered] = useState("");
 
@@ -83,27 +89,21 @@ const BookingTicket = () => {
   }
 
   const filterShowTimes = showTimes.filter(
-    (showTime) => showTime.ngayChieu === selectedDate
+    (showTime) => showTime.ngayChieu === dateFiltered
   );
-  console.log("🚀filterShowTimes---->", filterShowTimes);
-
-  // const    = (dateValue) => {
-  //   filterShowTimes.forEach((item) => {
-  //     if (item.ngayChieu === dateValue) {
-  //       setActiveDate(!activeDate);
-  //     } else {
-  //       setActiveDate(false);
-  //     }
-  //   });
-  // };
 
   const handleBookingTicket = (value) => {
-    console.log("🚀value---->", value);
+    if (currentUser === null) {
+      message.error("BẠN CHƯA CÓ TÀI KHOẢN, VUI LÒNG ĐĂNG NHẬP");
+      return <Navigate to={AUTH_PATH} />;
+    }
+    if (currentUser === "KhachHang") {
+      return <Navigate to={theaterDetail} />;
+    }
   };
 
   const templateReview =
     "Inception là một kiệt tác của đạo diễn Christopher Nolan, mang đến một trải nghiệm điện ảnh đầy kích thích và sâu sắc. Với cốt truyện phức tạp xoay quanh việc xâm nhập vào giấc mơ, phim cuốn hút khán giả từ đầu đến cuối. Leonardo DiCaprio thể hiện xuất sắc vai Dom Cobb, một chuyên gia trộm giấc mơ, mang đến sự căng thẳng và cảm xúc mãnh liệt. Hiệu ứng hình ảnh và âm thanh đỉnh cao, cùng với âm nhạc của Hans Zimmer, tạo nên một không gian mơ ảo và đầy mê hoặc. Inception là một bộ phim không thể bỏ qua cho những ai yêu thích điện ảnh.";
-
   if (dataMovieDetail) {
     return (
       <div className="bookingTicket main">
@@ -153,7 +153,7 @@ const BookingTicket = () => {
                           Diễn Viên: Anthony Ramos, Naomi Scott, Kristofer Hivju
                         </p>
                         <p className="txt">
-                          Khởi Chiếu:{" "}
+                          Khởi Chiếu:
                           {moment(dataMovieDetail?.ngayKhoiChieu).format(
                             "DD/MM/YYYY"
                           )}
@@ -214,23 +214,16 @@ const BookingTicket = () => {
                 </div>
               </Col>
             </div>
-            {dataScheduleMovie.dangChieu === false ? (
+
+            {showTimes.length > 0 ? (
               <div className="container-ticket">
                 <div className="movie-schedule">
                   <h2 className="heading">LỊCH CHIẾU</h2>
                   <div className="schedule-list">
                     {uniqueDates.map((item, index) => {
                       return (
-                        // <div
-                        //   className={`time ${activeDate ? "active" : ""}`}
-                        //   key={item}
-                        //   onClick={() => handleDateClick(item)}
-                        // >
-                        //   <p className="time-month">
-                        //     {moment(item).format("DD/MM")}
-                        //   </p>
-                        // </div>
-                        <DateTime
+                        <DateTimeButtonActive
+                          key={item}
                           item={item}
                           isActive={item === dateFiltered}
                           onChange={(item) => setFiltered(item)}
@@ -240,7 +233,9 @@ const BookingTicket = () => {
                   </div>
                 </div>
                 <div className="theater-list">
-                  <h2 className="heading">DANH SÁCH RẠP</h2>
+                  <h2 className="heading" style={{ textAlign: "center" }}>
+                    DANH SÁCH RẠP
+                  </h2>
                   {filterShowTimes.map((item, index) => {
                     const theaterDetail =
                       THEATER_DETAIL + `/${item.maLichChieu}`;
@@ -261,27 +256,22 @@ const BookingTicket = () => {
                 </div>
               </div>
             ) : (
-              <div>KHÔNG CÓ LỊCH CHIẾU</div>
+              <p
+                style={{
+                  color: "red",
+                  fontSize: "20px",
+                  marginTop: 60,
+                  textAlign: "center",
+                }}
+              >
+                PHIM HIỆN TẠI CHƯA CÓ SUẤT CHIẾU
+              </p>
             )}
           </div>
         </div>
       </div>
     );
   }
-};
-
-const DateTime = ({ item, onChange, isActive }) => {
-  return (
-    <div
-      className={`time ${isActive ? "active" : ""}`}
-      key={item}
-      onClick={() => {
-        onChange(item);
-      }}
-    >
-      <p className="time-month">{moment(item).format("DD/MM")}</p>
-    </div>
-  );
 };
 
 export default BookingTicket;

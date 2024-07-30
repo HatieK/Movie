@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import BannerMovie from "../../components/Banner";
 import fetcher from "../../apis/fetcher";
@@ -17,10 +17,12 @@ import {
 } from "../../redux/slices/dataMovie";
 import Button from "../../components/Button";
 import ComingSoon from "./ComingSoon";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-
+  const navigateWrapRef = useRef(null);
+  const location = useLocation();
   const [bannerList, setBannerList] = useState([]);
   const [showingMovieList, setShowingMovieList] = useState([]);
   const [filterSelectList, setFilterSelectList] = useState({
@@ -52,7 +54,6 @@ const HomePage = () => {
 
   const comingSoon = showingMovieList.filter((item) => item.sapChieu === false);
   const showingNow = showingMovieList.filter((item) => item.sapChieu === true);
-  console.log("🚀showingNow---->", showingNow);
 
   const getBannerMovie = async () => {
     try {
@@ -68,7 +69,7 @@ const HomePage = () => {
   const getShowingMovie = async () => {
     try {
       const response = await fetcher.get(
-        "/QuanLyPhim/LayDanhSachPhim?maNhom=GP03"
+        "/QuanLyPhim/LayDanhSachPhim?maNhom=GP04"
       );
       if (response.data.content.length > 0) {
         setShowingMovieList(response.data.content);
@@ -81,7 +82,7 @@ const HomePage = () => {
   const getInfoSystemList = async () => {
     try {
       const response = await fetcher.get(
-        "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP01"
+        "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP04"
       );
       if (response.data.content.length > 0) {
         const { content } = response.data;
@@ -192,12 +193,16 @@ const HomePage = () => {
   return (
     <div className="main container">
       <BannerMovie bannerList={bannerList} />
-      <Row className="navigate-wrap">
+      <Row
+        ref={navigateWrapRef}
+        id="navigate-wrap-scroll"
+        className="navigate-wrap"
+      >
         <Col className="heading">
           <h1 className="heading-title">ĐẶT VÉ NHANH</h1>
         </Col>
-        <div className="navigate-filter">
-          <Row gutter={[24, 24]}>
+        <div>
+          <Row className="navigate-filter" gutter={[24, 24]}>
             <Col className="navigate-filter-item">
               <Select
                 showSearch

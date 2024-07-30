@@ -1,6 +1,5 @@
 import { Button, Input, Modal } from "antd";
 import React, { useState } from "react";
-import HeaderMobileSelect from "./HeaderMobileSelect";
 import { useDispatch, useSelector } from "react-redux";
 import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
@@ -12,26 +11,17 @@ import OutsideAlerter from "../../hooks/useClickOutSide";
 import LoginForm from "../../pages/Auth/LoginForm";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { removeUser } from "../../redux/slices/userSlice";
+import { PROFILE_PAGE } from "../../constants/path";
 
 const HeaderTopRight = () => {
   const dispatch = useDispatch();
 
   const { currentUser } = useSelector((state) => state.authenticUser);
 
-  const { showInputHeaderMobile } = useSelector((state) => state.burger);
-  const handleShowInput = () => {
-    dispatch(handleShowInputHeader());
-  };
-
-  const handleCloseInputOutside = () => {
-    dispatch(handleCloseInput());
-  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  console.log("🚀isModalOpen---->", isModalOpen);
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -50,7 +40,7 @@ const HeaderTopRight = () => {
     {
       key: "2",
       label: (
-        <Link to="">
+        <Link to={PROFILE_PAGE}>
           <p>Thông Tin Hồ Sơ</p>
         </Link>
       ),
@@ -66,24 +56,6 @@ const HeaderTopRight = () => {
             src="../../../public/img/ic-header-search.svg"
             alt="cine start"
           />
-        </div>
-        <div>
-          <div className="search">
-            <Input
-              className={`${
-                showInputHeaderMobile ? "active" : ""
-              } search-input `}
-              placeholder="Tìm Phim, Rạp"
-            />
-            <OutsideAlerter handleShowInput={handleCloseInputOutside}>
-              <button className="search-button" onClick={handleShowInput}>
-                <img
-                  src="../../../public/img/icon-search.svg"
-                  alt="icon-search"
-                />
-              </button>
-            </OutsideAlerter>
-          </div>
         </div>
       </div>
       {/* HEADER AUTH */}
@@ -103,6 +75,9 @@ const HeaderTopRight = () => {
                   open={isModalOpen}
                   onCancel={handleCancel}
                 >
+                  <p className="modal-info">
+                    BẠN CHƯA CÓ TÀI KHOẢN: <span> ĐĂNG KÝ NGAY</span>
+                  </p>
                   <LoginForm />
                 </Modal>
               </div>
@@ -139,19 +114,3 @@ const HeaderTopRight = () => {
 };
 
 export default HeaderTopRight;
-
-// <div className="auth-text">
-// {currentUser === null ? (
-//   <Button onClick={showModal}>Đăng Nhập</Button>
-// ) : (
-//   <p className="authentic-user">{currentUser.taiKhoan}</p>
-// )}
-// <Modal
-//   footer={null}
-//   title="ĐĂNG NHẬP"
-//   open={isModalOpen}
-//   onCancel={handleCancel}
-// >
-//   <LoginForm />
-// </Modal>
-// </div>

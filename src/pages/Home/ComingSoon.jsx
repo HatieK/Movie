@@ -9,7 +9,7 @@ const ComingSoon = ({ comingSoon }) => {
       <Row gutter={[16, 32]} className="movie-list">
         {comingSoon.map((item) => {
           return (
-            <Col span={8} className="card-movie-item">
+            <Col span={8} key={item.maPhim} className="card-movie-item">
               <CardFilm dataCardFilm={item} />
             </Col>
           );

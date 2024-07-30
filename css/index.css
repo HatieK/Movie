@@ -307,7 +307,7 @@ body .container-mobile {
   top: 0;
   transform: translate(0);
   transition: all 0.2s linear;
-  width: 100vw;
+  width: 100%;
   z-index: 51;
 }
 .mobile-navbar {
@@ -396,6 +396,7 @@ body .container-mobile {
   margin: 0 auto;
 }
 .register-modal .btn-register {
+  margin-left: 40%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -715,6 +716,12 @@ body .container-mobile {
   opacity: 1;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  top: 40%;
+  z-index: 100000;
+}
+
 .banner-movie :where(.css-dev-only-do-not-override-zg0ahe).ant-carousel .slick-dots {
   opacity: 0;
   visibility: hidden;
@@ -771,6 +778,93 @@ body .container-mobile {
   .banner-movie :where(.css-dev-only-do-not-override-zg0ahe).ant-carousel .slick-prev {
     left: 0;
   }
+}
+
+.navigate-wrap {
+  justify-content: center;
+}
+@media screen and (max-width: 991px) {
+  .navigate-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.navigate-wrap .heading {
+  background: #fff;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2rem;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+@media screen and (max-width: 991px) {
+  .navigate-wrap .heading {
+    width: 40%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+}
+.navigate-wrap .heading-title {
+  font-family: "Antons";
+  color: #5444aa;
+  font-size: 1.4rem;
+}
+@media screen and (max-width: 991px) {
+  .navigate-wrap .navigate-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.navigate-wrap .navigate-filter-item {
+  max-height: 5rem;
+  max-width: 14rem;
+}
+.navigate-wrap .ant-select-selection-placeholder {
+  font-family: "Antons";
+  font-size: 2rem;
+  color: #639;
+  text-align: center;
+}
+.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  border: none;
+  background: #f8fafc;
+  border: 1px solid #f3ea28;
+  padding: 20px 0px;
+  width: 14rem;
+}
+.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item {
+  color: #639;
+  font-family: "Antons";
+  text-align: center;
+  letter-spacing: 1px;
+  padding-inline-end: 0px;
+}
+.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+  display: none;
+}
+.navigate-wrap .ant-select-arrow {
+  display: none;
+}
+
+.ant-select-dropdown .ant-select-item-option-content {
+  text-align: center;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .footer {
@@ -953,11 +1047,13 @@ body .container-mobile {
   width: 100%;
 }
 .header-top-wrap {
+  padding: 15px 0;
   display: flex;
   align-items: center;
   height: 100%;
   gap: 8rem;
   position: relative;
+  justify-content: center;
 }
 .header-top .main-logo img {
   width: 13rem;
@@ -971,7 +1067,6 @@ body .container-mobile {
   display: flex;
   align-items: center;
   gap: 3.6rem;
-  margin-left: auto;
 }
 .header-top-right .header-top-search .header-search {
   display: none;
@@ -1001,9 +1096,16 @@ body .container-mobile {
   align-items: center;
   gap: 1rem;
 }
+.header-top-right .header-top-auth .header-auth-wrap .authentic-user {
+  color: #f8fafc;
+  font-size: 1.6rem;
+}
 .header-top-right .header-top-auth .header-auth-wrap .auth-ava img {
   width: 2.4rem;
   height: 2.4rem;
+}
+.header-top-right .header-top-auth .header-auth-wrap .auth-text {
+  cursor: pointer;
 }
 .header-top-right .header-top-auth .header-auth-wrap .auth-text a {
   color: #f8fafc;
@@ -1121,8 +1223,14 @@ body .container-mobile {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+}
+@media screen and (max-width: 767px) and (max-width: 575px) {
+  .header-mobile-wrap {
     width: 100%;
   }
+}
+@media screen and (max-width: 767px) {
   .header-mobile-wrap .mobile-select {
     border: 1px solid blue;
     border-radius: 5px;
@@ -1182,6 +1290,16 @@ body .container-mobile {
   }
 }
 
+:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content {
+  background: #5444aa;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content .ant-modal-header {
+  background: none;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content .ant-modal-title {
+  text-align: center;
+}
+
 .mobile-navbar-bottom {
   display: none;
 }
@@ -1197,6 +1315,13 @@ body .container-mobile {
     display: block;
     z-index: 20;
   }
+}
+@media screen and (max-width: 767px) and (max-width: 575px) {
+  .mobile-navbar-bottom {
+    width: 68%;
+  }
+}
+@media screen and (max-width: 767px) {
   .mobile-navbar-bottom .menu-list {
     display: flex;
     justify-content: space-between;
@@ -1231,4 +1356,444 @@ body .container-mobile {
     opacity: 1;
     visibility: visible;
   }
+}
+
+.bookingTicket {
+  margin-top: 2rem;
+}
+.bookingTicket .movie-select .movie-image img {
+  width: 90%;
+}
+.bookingTicket .movie-select .movie-info .heading {
+  font-family: "Antons";
+  font-size: 4rem;
+  color: #f8fafc;
+}
+@media screen and (max-width: 767px) {
+  .bookingTicket .movie-select .movie-info .heading {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 575px) {
+  .bookingTicket .movie-select .movie-info .heading {
+    font-size: 1.6rem;
+    line-height: 30px;
+  }
+}
+.bookingTicket .movie-select .movie-info .info-item {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  font-family: "Jolesins";
+  margin-bottom: 1.5rem;
+}
+.bookingTicket .movie-select .movie-info .info-item .ic img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+@media (max-width: 575px) {
+  .bookingTicket .movie-select .movie-info .info-item .ic img {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+.bookingTicket .movie-select .movie-info .info-item .txt {
+  font-size: 1.4rem;
+  color: #f8fafc;
+}
+.bookingTicket .movie-select .movie-info .detail {
+  font-family: "Jolesins";
+}
+@media screen and (max-width: 767px) {
+  .bookingTicket .movie-select .movie-info .detail {
+    display: none;
+  }
+}
+.bookingTicket .movie-select .movie-info .detail span {
+  font-family: "Antons";
+  font-size: 2rem;
+  color: #f8fafc;
+}
+.bookingTicket .movie-select .movie-info .detail .txt {
+  margin-top: 20px;
+  font-size: 1.8rem;
+  color: #f8fafc;
+}
+.bookingTicket .movie-select .movie-info .detail-content h2 {
+  margin-top: 3rem;
+  font-family: "Antons";
+  font-size: 2rem;
+  color: #f8fafc;
+}
+.bookingTicket .movie-select .movie-info .detail-content .txt {
+  letter-spacing: 0.6px;
+}
+.bookingTicket .movie-select .movie-info .detail .info-action {
+  margin-top: 2rem;
+}
+.bookingTicket .movie-select .movie-info .detail .info-action .booking {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.bookingTicket .movie-select .movie-info .detail .info-action .booking .text {
+  font-family: "Jolesins";
+  text-decoration: underline;
+}
+.bookingTicket .movie-select .movie-info .detail .info-action .action-watch {
+  display: flex;
+  align-items: center;
+}
+.bookingTicket .movie-select .detail {
+  font-family: "Jolesins";
+}
+.bookingTicket .movie-select .detail.bookingTicket-mobile {
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .bookingTicket .movie-select .detail.bookingTicket-mobile {
+    display: block;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile span {
+    margin-top: 2rem;
+    display: inline-block;
+    font-family: "Antons";
+    font-size: 1.6rem;
+    color: #f8fafc;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile .txt {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    color: #f8fafc;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile-content h2 {
+    margin-top: 3rem;
+    font-family: "Antons";
+    font-size: 1.8rem;
+    color: #f8fafc;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile-content .txt {
+    letter-spacing: 0.6px;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile .info-action {
+    margin-top: 2rem;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile .info-action .booking {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile .info-action .booking .text {
+    font-family: "Jolesins";
+    text-decoration: underline;
+  }
+  .bookingTicket .movie-select .detail.bookingTicket-mobile .info-action .action-watch {
+    display: flex;
+    align-items: center;
+  }
+}
+.bookingTicket .container-ticket {
+  width: 67%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.bookingTicket .movie-schedule {
+  margin-top: 10rem;
+}
+.bookingTicket .movie-schedule .heading {
+  font-size: 4rem;
+  color: #f8fafc;
+  text-align: center;
+  margin-bottom: 24px;
+  font-family: "Antons";
+}
+.bookingTicket .movie-schedule .schedule-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.bookingTicket .movie-schedule .schedule-list .time {
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+  width: 100px;
+  border: 1px solid #f3ea28;
+  text-align: center;
+  cursor: pointer;
+}
+.bookingTicket .movie-schedule .schedule-list .time.active {
+  background: #f3ea28;
+}
+.bookingTicket .movie-schedule .schedule-list .time.active .time-month {
+  color: #5444aa;
+}
+.bookingTicket .movie-schedule .schedule-list .time-month {
+  font-size: 2rem;
+  color: #f3ea28;
+  margin-bottom: 1rem;
+}
+.bookingTicket .movie-schedule .schedule-list .time-day {
+  color: #5444aa;
+}
+.bookingTicket .theater-list {
+  margin-top: 3rem;
+}
+.bookingTicket .theater-list .heading {
+  font-size: 3rem;
+  color: #f8fafc;
+  margin-bottom: 24px;
+  font-family: "Antons";
+}
+.bookingTicket .theater-list .theater-info {
+  margin-top: 2rem;
+  background: #639;
+  padding: 2.4rem;
+  margin-bottom: 5rem;
+}
+.bookingTicket .theater-list .name {
+  color: #f3ea28;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+.bookingTicket .theater-list .address {
+  font-size: 1.6rem;
+  color: #f8fafc;
+  margin: 2rem 0;
+}
+.bookingTicket .theater-list .hour {
+  display: inline-block;
+  padding: 8px;
+  border: 1px solid forestgreen;
+  color: #f3ea28;
+  font-size: 1.6rem;
+}
+
+.navigate-wrap {
+  margin-top: 50px;
+}
+.navigate-wrap .navigate-filter-item {
+  margin-right: 20px;
+}
+.navigate-wrap .navigate-filter-btn {
+  height: 41px;
+}
+.navigate-wrap .navigate-filter-btn .navigate-filter {
+  background: #f3ea28;
+  border-radius: 10px;
+}
+
+.coming-soon .heading {
+  margin-top: 10rem;
+  font-size: 3.6rem;
+  color: #f8fafc;
+  text-align: center;
+}
+.coming-soon .movie-list .card-movie-item .card-movie-box img {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.row-label {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+
+.seat {
+  width: 40px;
+  height: 30px;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.seat.vip {
+  background: #f3ea28;
+}
+.seat.booked {
+  background: #639 !important;
+  pointer-events: none;
+}
+.seat.booking {
+  background: linear-gradient(90deg, #ff6d00, #ffc107);
+}
+
+.type-seat {
+  display: flex;
+  justify-content: space-between;
+  margin: 3rem 0;
+}
+.type-seat .booked {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.type-seat .booked p {
+  background: #639;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.type-seat .booked span {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+.type-seat .booking {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.type-seat .booking p {
+  background: linear-gradient(90deg, #ff6d00, #ffc107);
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.type-seat .booking span {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+.type-seat .vip {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.type-seat .vip p {
+  background: #f3ea28;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.type-seat .vip span {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+.type-seat .normal {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.type-seat .normal p {
+  background: #f8fafc;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.type-seat .normal span {
+  color: #f8fafc;
+  font-size: 1.4rem;
+}
+
+.bill {
+  animation: fadeInUp 0.3s ease-in-out;
+  background-color: #0f172a;
+  border-top: 0.1rem solid rgba(248, 250, 252, 0.5);
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  position: sticky;
+  transition: 0.3s ease-in-out;
+  width: 100%;
+  z-index: 0;
+}
+.bill-wrapper {
+  display: flex;
+  gap: 20px;
+}
+.bill-left {
+  flex: 1;
+}
+.bill-left .name-film {
+  font-size: 2.4rem;
+  color: #f8fafc;
+  font-family: "Antons";
+  margin-bottom: 2rem;
+}
+.bill-left .list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.bill-left .list .item .txt {
+  font-size: 1.2rem;
+  color: #f8fafc;
+  font-family: "Antons";
+}
+.bill-custom-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 40rem;
+}
+.bill-custom-right .bill-countdown {
+  width: 15rem;
+  background-color: #f3ea28;
+  border: 0.1rem solid rgba(248, 250, 252, 0.5);
+  border-radius: 0.4rem;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.3rem;
+}
+.bill-custom-right .bill-countdown .txt {
+  font-family: "Jolesins";
+  margin-bottom: 1rem;
+}
+.bill-custom-right .bill-countdown .bill-time {
+  align-items: center;
+  display: flex;
+  font-family: "Antons";
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+}
+.bill-custom-right .bill-right {
+  width: 100%;
+}
+.bill-custom-right .bill-right .price {
+  display: flex;
+  color: #f8fafc;
+  align-items: center;
+  justify-content: space-between;
+}
+.bill-custom-right .bill-right .price .txt {
+  font-size: 1.4rem;
+}
+.bill-custom-right .bill-right .price .num {
+  font-size: 2rem;
+}
+.bill-custom-right .bill-button {
+  width: 100%;
+}
+.bill-custom-right .bill-button .btn {
+  width: 100%;
+}
+
+:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content .ant-modal-title {
+  color: #f8fafc;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+.ant-modal-body {
+  font-family: "Antons";
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.8rem;
+}
+.ant-modal-body .info-film {
+  color: aquamarine;
+}
+.ant-modal-body .dataSeat {
+  color: #f3ea28;
 }/*# sourceMappingURL=index.css.map */
