@@ -53,18 +53,28 @@ const InforProfile = () => {
     control,
     handleSubmit,
     register,
-
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: dataInfoUser?.taiKhoan || "",
-      email: dataInfoUser?.email || "",
-      phone: dataInfoUser?.soDT || "",
-      password: dataInfoUser?.password || "",
+      name: "",
+      email: "",
+      phone:"",
+      password: "",
     },
     resolver: yupResolver(schema),
     criteriaMode: "all",
   });
+
+  useEffect(() => {
+    if (dataInfoUser) {
+      console.log(dataInfoUser[0])
+      setValue('name', dataInfoUser[0].taiKhoan);
+      setValue('email', dataInfoUser[0].email);
+      setValue('phone', dataInfoUser[0].soDT);
+      setValue('password', dataInfoUser[0].matKhau);
+    }
+  }, [dataInfoUser, setValue]);
 
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] =

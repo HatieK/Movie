@@ -61,9 +61,6 @@ const LoginForm = () => {
       matKhau: value.password,
     };
     handleLogin(payload);
-
-    dispatch(changePathName(pathname));
-    navigate(HOME_PATH);
   };
 
   return (

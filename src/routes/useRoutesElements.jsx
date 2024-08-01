@@ -26,9 +26,7 @@ import MovieManagement from "../modules/Admin/MovieManagement/MovieManagement";
 import AccountSetting from "../modules/Admin/AccountSetting/AccountSetting";
 import CinemaManagement from "../modules/Admin/CinemaManagement/CinemaManagement";
 
-export const RejectedRoutes = () => {
-  const { pathName } = useSelector((state) => state.pathNameLogin);
-
+const RejectedRouters = () => {
   const { currentUser } = useSelector((state) => state.authenticUser);
 
   if (currentUser === null) {
@@ -37,7 +35,7 @@ export const RejectedRoutes = () => {
   return currentUser.maLoaiNguoiDung === "QuanTri" ? (
     <Navigate to={ADMIN_PATH} />
   ) : (
-    <Navigate to={pathName} />
+    <Navigate to={HOME_PATH} />
   );
 };
 
@@ -58,33 +56,52 @@ const ProtectedAdmin = () => {
   return currentUser.maLoaiNguoiDung === "QuanTri" ? (
     <Outlet />
   ) : (
-    <Navigate to={AUTH_PATH} />
+    <Navigate to={HOME_PATH} />
   );
 };
 
 const useRoutesElements = () => {
   const routes = useRoutes([
     {
-      path: THEATER_DETAIL_SEGMENT,
-      element: <ProtectedRoutes />,
-      children: [{ path: THEATER_DETAIL_SEGMENT, element: <RoomSeatList /> }],
-    },
-    {
-      path: PROFILE_PAGE,
-      element: <ProtectedRoutes />,
-      children: [{ path: PROFILE_PAGE, element: <Profile /> }],
-    },
-    {
       path: HOME_PATH,
-      index: true,
-      element: <HomePage />,
+      element: <HomePage/>
     },
-    { path: AUTH_PATH, element: <AuthPage /> },
-    { path: TICKET_BOOKING_SEGMENT, element: <BookingTicket /> },
-    { path: MOVIE_DETAIL_SEGMENT, element: <MovieDetail /> },
-    { path: THEATER_DETAIL_SEGMENT, element: <RoomSeatList /> },
-    { path: PROFILE_PAGE, element: <Profile /> },
+    {
+      path: MOVIE_DETAIL_SEGMENT,
+      element: <MovieDetail />,
+    },
 
+    // RejectedRouters
+    {
+      element: <RejectedRouters />,
+      children: [
+        {
+          path: AUTH_PATH,
+          element: <AuthPage />,
+        },
+      ],
+    },
+
+    // ProtectedRoutes
+    {
+      element: <ProtectedRoutes/>,
+      children: [
+        {
+          path: THEATER_DETAIL_SEGMENT, 
+          element: <RoomSeatList />
+        },
+        {
+          path: PROFILE_PAGE, 
+          element: <Profile /> 
+        },
+        {
+          path: TICKET_BOOKING_SEGMENT, 
+          element: <BookingTicket /> 
+        }
+      ]
+    },
+
+    // ProtectedAdmin
     {
       path: ADMIN_PATH,
       element: <ProtectedAdmin />,
