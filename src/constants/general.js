@@ -30,8 +30,7 @@ export const ERROR_MESSAGE = {
   confirmPassword: {
     required: "Xác Nhận Mật Khẩu Không Được Để Trống",
     errorRegex: "Mật Khẩu không trùng khớp",
-    errorPassword: "Vui lòng nhập mật khẩu rồi mới xác nhận mật khẩu",
   },
 };
 
-export const GROUP_CODE = "GP01";
+export const GROUP_CODE = "GP03";

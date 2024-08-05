@@ -14,12 +14,10 @@ import { changePathName } from "../../redux/slices/pathLogin";
 import { HOME_PATH } from "../../constants/path";
 
 const schema = yup.object({
-  name: yup.string().trim(),
-  // .required(ERROR_MESSAGE.name.required)
+  name: yup.string().trim().required(ERROR_MESSAGE.name.required),
   // .min(minLength, ERROR_MESSAGE.name.minLength)
   // .max(maxLength, ERROR_MESSAGE.name.maxLength),
-  password: yup.string().trim(),
-  // .notRequired()
+  password: yup.string().trim().notRequired(),
   // .required(ERROR_MESSAGE.password.required)
   // .matches(ERROR_MESSAGE.password.regex, ERROR_MESSAGE.password.errorRegex),
 });
@@ -49,6 +47,7 @@ const LoginForm = () => {
     onSuccess: (response) => {
       setLocalStorage("user", response);
       dispatch(setUsers(response));
+      message.success("Đăng Nhập Thành Công");
     },
     onError: (error) => {
       console.log("🚀error---->", error);

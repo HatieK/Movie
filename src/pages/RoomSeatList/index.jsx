@@ -35,6 +35,7 @@ const RoomSeatList = () => {
     tenRap: numberTheater,
     tenPhim: nameMovie,
   } = movieInfo;
+  console.log("🚀nameMovie---->", nameMovie);
 
   return (
     <div className="container main" style={{ position: "relative" }}>

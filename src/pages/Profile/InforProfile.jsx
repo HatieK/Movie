@@ -40,6 +40,7 @@ const schema = yup.object({
 
 const InforProfile = () => {
   const { currentUser } = useSelector((state) => state.authenticUser);
+  console.log("🚀currentUser---->", currentUser);
 
   const { data: dataInfoUser, isLoading: dataInfoUserLoading } = useQuery({
     queryKey: ["infoUser"],
@@ -53,18 +54,28 @@ const InforProfile = () => {
     control,
     handleSubmit,
     register,
-
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: dataInfoUser?.taiKhoan || "",
-      email: dataInfoUser?.email || "",
-      phone: dataInfoUser?.soDT || "",
-      password: dataInfoUser?.password || "",
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
     },
     resolver: yupResolver(schema),
     criteriaMode: "all",
   });
+
+  useEffect(() => {
+    if (dataInfoUser) {
+      console.log(dataInfoUser[0]);
+      setValue("name", dataInfoUser[0].taiKhoan);
+      setValue("email", dataInfoUser[0].email);
+      setValue("phone", dataInfoUser[0].soDT);
+      setValue("password", dataInfoUser[0].matKhau);
+    }
+  }, [dataInfoUser, setValue]);
 
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] =
@@ -201,36 +212,7 @@ const InforProfile = () => {
             <p className="text-danger">{errors?.password.message}</p>
           )}
         </div>
-        <div className="form-group">
-          <label className="form-label " htmlFor="confirmPassword">
-            Confirm Password
-          </label>
 
-          <Controller
-            name="confirmPassword"
-            control={control}
-            render={({ field }) => {
-              return (
-                <Input.Password
-                  {...field}
-                  visibilityToggle={{
-                    visible: confirmPasswordVisible,
-                    onVisibleChange: setConfirmPasswordVisible,
-                  }}
-                  size="large"
-                  className="form-input"
-                  id="confirmPassword"
-                  type="password"
-                  status={errors.confirmPassword ? "error" : ""}
-                />
-              );
-            }}
-          />
-
-          {errors?.confirmPassword && (
-            <p className="text-danger">{errors?.confirmPassword.message}</p>
-          )}
-        </div>
         <Button htmlType="submit" className="btn btn-register">
           Đăng Ký
         </Button>

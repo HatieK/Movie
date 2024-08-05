@@ -17,10 +17,10 @@ function App() {
       <CardFilm />
       <BannerMovie />
       <Footer /> */}
-      {/* <Header /> */}
+      <Header />
       <ScrollToTop />
       {routeElement}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

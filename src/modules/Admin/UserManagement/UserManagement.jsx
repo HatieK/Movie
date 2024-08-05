@@ -1,16 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { Breadcrumb, Button, Pagination, Table, Tag } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { adminUser } from "../../../apis/adminUser";
-import { USER_TYPES_MAPPING } from "../../../constants/general";
+import { PAGE_SIZE, USER_TYPES_MAPPING } from "../../../constants/general";
+import AddOrEditModal from "./AddOrEditModal";
+import { useOpenModal } from "../../../hooks/useOpenModal";
 
 const UserManagement = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const { isOpen, openModal, closeModal } = useOpenModal();
+  const [dataEdit, setDataEdit] = useState(undefined);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const {
     data: userData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["list-users", {}],
+    queryKey: ["list-users", { currentPage, pageSize }],
     queryFn: () => adminUser.getListUser({ page: currentPage, pageSize }),
   });
 
@@ -52,8 +58,10 @@ const UserManagement = () => {
           <div className="flex">
             <Button
               type="primary"
-              className="mr-2"
-              onClick={() => alert(record.taiKhoan)}
+              onClick={() => {
+                setDataEdit(record);
+                openModal();
+              }}
             >
               Edit
             </Button>
@@ -72,6 +80,10 @@ const UserManagement = () => {
   const dataSource = userData?.items || [];
   const total = userData?.totalCount || 0;
 
+  const handleSubmit = (value) => {
+    console.log("🚀value---->", value);
+  };
+
   return (
     <>
       <div className="userManagement">
@@ -88,7 +100,14 @@ const UserManagement = () => {
           ]}
         />
 
-        <Button size="large" type="primary">
+        <Button
+          size="large"
+          type="primary"
+          onClick={() => {
+            openModal();
+            setDataEdit(undefined);
+          }}
+        >
           Add User
         </Button>
       </div>
@@ -100,19 +119,21 @@ const UserManagement = () => {
         pagination={false}
         loading={isLoading}
       />
-      <div className="flex justify-end mt-10">
+      <div className="pagination">
         <Pagination
           total={total}
-          // defaultCurrent={currentPage}
+          defaultCurrent={currentPage}
           onChange={(page, pSize) => {
             setCurrentPage(page);
-
-            if (pSize !== pageSize) {
-              setPageSize(pSize);
-            }
           }}
+          showSizeChanger={false}
         />
       </div>
+      <AddOrEditModal
+        dataEdit={dataEdit}
+        isOpen={isOpen}
+        onCloseModal={closeModal}
+      />
     </>
   );
 };

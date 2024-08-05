@@ -12,7 +12,6 @@ const fetcher = axios.create({
 
 fetcher.interceptors.request.use((config) => {
   const currentUser = getLocalStorage("user");
-  console.log("🚀currentUser---->", currentUser);
 
   config.headers = {
     ...config.headers,

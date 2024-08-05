@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import BannerMovie from "../../components/Banner";
 import fetcher from "../../apis/fetcher";
 import ShowingMovie from "./ShowingMovie";
-import { Col, Row, Select } from "antd";
+import { Col, ConfigProvider, Row, Select } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { movieListApi } from "../../apis/movieList.api";
 import { useDispatch } from "react-redux";
@@ -69,7 +69,7 @@ const HomePage = () => {
   const getShowingMovie = async () => {
     try {
       const response = await fetcher.get(
-        "/QuanLyPhim/LayDanhSachPhim?maNhom=GP04"
+        "/QuanLyPhim/LayDanhSachPhim?maNhom=GP03"
       );
       if (response.data.content.length > 0) {
         setShowingMovieList(response.data.content);
@@ -82,7 +82,7 @@ const HomePage = () => {
   const getInfoSystemList = async () => {
     try {
       const response = await fetcher.get(
-        "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP04"
+        "/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=GP03"
       );
       if (response.data.content.length > 0) {
         const { content } = response.data;
@@ -110,6 +110,12 @@ const HomePage = () => {
   const { heThongRapChieu = [] } = scheduleMovieList || {};
 
   const dataTheaterList = heThongRapChieu.map((item) => {
+    if (!item) {
+      return {
+        value: "",
+        label: "Chưa Có Suất Chiếu",
+      };
+    }
     return {
       value: item.maHeThongRap,
       label: item.tenHeThongRap,
@@ -183,6 +189,8 @@ const HomePage = () => {
   };
   const detailMovie = TICKET_BOOKING_PATH + `/${filterSelectList.movie.value}`;
 
+  const handleDropDownRender = () => {};
+
   useEffect(() => {
     getBannerMovie();
     getShowingMovie();
@@ -219,6 +227,7 @@ const HomePage = () => {
               />
             </Col>
             <Col className="navigate-filter-item">
+              {/* <ConfigProvider renderEmpty={() => "Phim Chưa Có Rạp Chiếu"}> */}
               <Select
                 showSearch
                 optionFilterProp="label"
@@ -233,24 +242,28 @@ const HomePage = () => {
                 onChange={(value) => handleChangeNavigate("theater", value)}
                 value={filterSelectList.theater.label}
                 options={dataTheaterList}
+                notFoundContent="Phim Chưa Có "
               />
+              {/* </ConfigProvider> */}
             </Col>
             <Col className="navigate-filter-item">
-              <Select
-                showSearch
-                optionFilterProp="label"
-                filterSort={(optionA, optionB) =>
-                  (optionA?.label ?? "")
-                    .toLowerCase()
-                    .localeCompare((optionB?.label ?? "").toLowerCase())
-                }
-                value={filterSelectList.date.label}
-                options={finalDateList}
-                disabled={
-                  filterSelectList.theater.label === "CHỌN RẠP" ? true : false
-                }
-                onChange={(value) => handleChangeNavigate("date", value)}
-              />
+              <ConfigProvider renderEmpty={() => "Phim Chưa Có Suất Chiếu"}>
+                <Select
+                  showSearch
+                  optionFilterProp="label"
+                  filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? "")
+                      .toLowerCase()
+                      .localeCompare((optionB?.label ?? "").toLowerCase())
+                  }
+                  value={filterSelectList.date.label}
+                  options={finalDateList}
+                  disabled={
+                    filterSelectList.theater.label === "CHỌN RẠP" ? true : false
+                  }
+                  onChange={(value) => handleChangeNavigate("date", value)}
+                />
+              </ConfigProvider>
             </Col>
             <Col className="navigate-filter-item">
               <Select

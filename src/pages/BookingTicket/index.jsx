@@ -6,11 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, Navigate, useParams } from "react-router-dom";
 import ComponentLoading from "../../components/Loading";
 import moment from "moment/moment";
-import {
-  AUTH_PATH,
-  THEATER_DETAIL,
-  THEATER_DETAIL_SEGMENT,
-} from "../../constants/path";
+import { AUTH_PATH, THEATER_DETAIL } from "../../constants/path";
 import DateTimeButtonActive from "./DateTimeButtonActive";
 
 const extractShowtimes = (data) => {
@@ -93,13 +89,13 @@ const BookingTicket = () => {
   );
 
   const handleBookingTicket = (value) => {
-    if (currentUser === null) {
-      message.error("BẠN CHƯA CÓ TÀI KHOẢN, VUI LÒNG ĐĂNG NHẬP");
-      return <Navigate to={AUTH_PATH} />;
-    }
-    if (currentUser === "KhachHang") {
-      return <Navigate to={theaterDetail} />;
-    }
+    // if (currentUser === null) {
+    //   message.error("BẠN CHƯA CÓ TÀI KHOẢN, VUI LÒNG ĐĂNG NHẬP");
+    //   return <Navigate to={AUTH_PATH} />;
+    // }
+    // if (currentUser === "KhachHang") {
+    //   return <Navigate to={theaterDetail} />;
+    // }
   };
 
   const templateReview =
@@ -167,14 +163,19 @@ const BookingTicket = () => {
                           }}`}</p>
                         </div>
                         <div className="info-action">
-                          <a href="" className="booking action-watch">
+                          <a
+                            href={dataMovieDetail.trailer}
+                            className="booking action-watch"
+                          >
                             <span className="ic">
                               <img
                                 src="../../../public/img/icon-play-vid.svg"
                                 alt=""
                               />
                             </span>
-                            <span className="text">Xem Trailer</span>
+                            <Link to={dataMovieDetail.trailer}>
+                              <span className="text">Xem Trailer</span>
+                            </Link>
                           </a>
                         </div>
                       </div>
@@ -246,7 +247,7 @@ const BookingTicket = () => {
                         <Link
                           className="hour"
                           to={theaterDetail}
-                          onClick={() => handleBookingTicket(item.maLichChieu)}
+                          // onClick={() => handleBookingTicket(item.maLichChieu)}
                         >
                           {item.gioChieu}
                         </Link>

@@ -15,12 +15,7 @@ const RegisterForm = () => {
             <h2 className="register-title">
               Đăng Ký Để Được Cập Nhật Các Chương Trình Khuyến Mãi Mới Nhất
             </h2>
-            <p className="register-title">
-              Bạn Đã Có Tài Khoản:
-              <a href="">
-                <span className="register-login">Đăng Nhập</span>
-              </a>
-            </p>
+
             <FormPage />
           </div>
         </div>

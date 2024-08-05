@@ -2,7 +2,12 @@
   height: 100vh;
 }
 
-.userManagement {
+.ant-layout-content {
+  overflow-y: scroll;
+}
+
+.userManagement,
+.movieManagement {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,4 +19,10 @@
   color: $bgFooter-color;
   font-size: $fs-text20;
   font-weight: bold;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
 }

@@ -20,4 +20,15 @@ export const adminUser = {
       throw Error(error.response.data.content);
     }
   },
+  addUser: async (payload) => {
+    try {
+      const response = await fetcher.post(
+        "/QuanLyNguoiDung/ThemNguoiDung",
+        payload
+      );
+      return response.data.content;
+    } catch (error) {
+      console.log("🚀error---->", error);
+    }
+  },
 };

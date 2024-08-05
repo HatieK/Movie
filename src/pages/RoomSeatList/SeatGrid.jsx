@@ -24,7 +24,9 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
   const handleOk = () => {
     message.success("ĐẶT VÉ THÀNH CÔNG");
     setIsModalOpen(false);
-    navigate(HOME_PATH);
+    setTimeout(() => {
+      navigate(HOME_PATH);
+    }, 1000);
     const updateBooking = infoTotalSeatList.map((item) => {
       const seat = seatList.find((seat) => item.maGhe === seat.maGhe);
       if (seat) {
@@ -36,6 +38,10 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
       return item;
     });
     dispatch(finalBooking({ data: updateBooking }));
+    setLocalStorage("seatList", {
+      apiKey: slug,
+      data: updateBooking,
+    });
   };
   useEffect(() => {
     const storedData = getLocalStorage("seatList");
@@ -208,7 +214,6 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button onClick={handleOk}> Xác Nhận</Button>
           <Button onClick={handleCancel} style={{ marginLeft: "15px" }}>
-            {" "}
             Hủy Bỏ
           </Button>
         </div>

@@ -1,20 +1,17 @@
-import { Button, Input, Modal } from "antd";
+import { Button, Input, message, Modal } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
-import {
-  handleCloseInput,
-  handleShowInputHeader,
-} from "../../redux/slices/showHamburger";
-import OutsideAlerter from "../../hooks/useClickOutSide";
+
 import LoginForm from "../../pages/Auth/LoginForm";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { removeUser } from "../../redux/slices/userSlice";
-import { PROFILE_PAGE } from "../../constants/path";
+import { AUTH_PATH, PROFILE_PAGE } from "../../constants/path";
 
 const HeaderTopRight = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { currentUser } = useSelector((state) => state.authenticUser);
 
@@ -30,6 +27,12 @@ const HeaderTopRight = () => {
     localStorage.clear();
     dispatch(removeUser(null));
     setIsModalOpen(false);
+    message.success("Logout Thành Công");
+  };
+
+  const handlePathAuthen = () => {
+    setIsModalOpen(false);
+    navigate(AUTH_PATH);
   };
 
   const items = [
@@ -76,7 +79,13 @@ const HeaderTopRight = () => {
                   onCancel={handleCancel}
                 >
                   <p className="modal-info">
-                    BẠN CHƯA CÓ TÀI KHOẢN: <span> ĐĂNG KÝ NGAY</span>
+                    BẠN CHƯA CÓ TÀI KHOẢN:{" "}
+                    <span
+                      style={{ color: "orange", cursor: "pointer" }}
+                      onClick={handlePathAuthen}
+                    >
+                      ĐĂNG KÝ NGAY
+                    </span>
                   </p>
                   <LoginForm />
                 </Modal>

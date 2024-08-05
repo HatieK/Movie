@@ -6,6 +6,8 @@ import { Button, Form, Input, message } from "antd";
 import { ERROR_MESSAGE, maxLength, minLength } from "../../constants/general";
 import { useMutation } from "@tanstack/react-query";
 import { registerApi } from "../../apis/authen.user";
+import { useNavigate } from "react-router-dom";
+import { HOME_PATH } from "../../constants/path";
 
 const schema = yup.object({
   name: yup
@@ -36,13 +38,11 @@ const schema = yup.object({
     .notRequired()
     .required(ERROR_MESSAGE.confirmPassword.required)
 
-    .oneOf(
-      [yup.ref("password"), null],
-      ERROR_MESSAGE.confirmPassword.errorPassword
-    ),
+    .oneOf([yup.ref("password"), null], "Xác Nhận Mật Khẩu Sai"),
 });
 
 const FormPage = () => {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -68,7 +68,8 @@ const FormPage = () => {
       return registerApi(payload);
     },
     onSuccess: (response) => {
-      message.success("Đăng Ký Thành Công");
+      message.success("Đăng Ký Tài Khoản Thành Công");
+      navigate(HOME_PATH);
     },
     onError: (error) => {
       message.error("Đăng Kỳ Thất Bại");
@@ -82,7 +83,7 @@ const FormPage = () => {
       matKhau: password,
       email: email,
       soDt: phone,
-      maNhom: "GP00",
+      maNhom: "GP03",
       hoTen: name,
     };
     mutation.mutate(payload);
