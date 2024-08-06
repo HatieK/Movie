@@ -1,9 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useRoutes } from "react-router-dom";
-import HomePage from "../pages/Home";
-import AuthPage from "../pages/Auth";
-import BookingTicket from "../pages/BookingTicket";
-import MovieDetail from "../pages/MovieDetail";
 import {
   ADMIN_PATH,
   ADMIN_PATH_CINEMA,
@@ -12,21 +9,19 @@ import {
   AUTH_PATH,
   HOME_PATH,
   PROFILE_PAGE,
-  THEATER_DETAIL,
   THEATER_DETAIL_SEGMENT,
-  TICKET_BOOKING_PATH,
   TICKET_BOOKING_SEGMENT,
 } from "../constants/path";
-import { useSelector } from "react-redux";
-import RoomSeatList from "../pages/RoomSeatList";
-import Profile from "../pages/Profile";
 import AdminLayout from "../layout/AdminLayout/AdminLayout";
-import UserManagement from "../modules/Admin/UserManagement/UserManagement";
-import MovieManagement from "../modules/Admin/MovieManagement/MovieManagement";
-import AccountSetting from "../modules/Admin/AccountSetting/AccountSetting";
 import CinemaManagement from "../modules/Admin/CinemaManagement/CinemaManagement";
+import MovieManagement from "../modules/Admin/MovieManagement/MovieManagement";
+import UserManagement from "../modules/Admin/UserManagement/UserManagement";
 import RegisterForm from "../pages/Auth/RegisterForm";
-import SeatGrid from "../pages/RoomSeatList/SeatGrid";
+import BookingTicket from "../pages/BookingTicket";
+import HomePage from "../pages/Home";
+import Profile from "../pages/Profile";
+import RoomSeatList from "../pages/RoomSeatList";
+import MainLayout from "../layout/MainLayout/MainLayout";
 
 const RejectedRouters = () => {
   const { currentUser } = useSelector((state) => state.authenticUser);
@@ -37,21 +32,16 @@ const RejectedRouters = () => {
   return currentUser.maLoaiNguoiDung === "QuanTri" ? (
     <Navigate to={ADMIN_PATH} />
   ) : (
-    <Navigate to={HOME_PATH} />
+    <Outlet />
   );
 };
 
 const ProtectedRoutes = () => {
   const { currentUser } = useSelector((state) => state.authenticUser);
-
-  if (currentUser === null) {
-    return <Navigate to={AUTH_PATH} />;
+  if (currentUser && currentUser.maLoaiNguoiDung === "QuanTri") {
+    return <Outlet />;
   }
-  return currentUser.maLoaiNguoiDung === "QuanTri" ? (
-    <Outlet />
-  ) : (
-    <Navigate to={HOME_PATH} />
-  );
+  return <Navigate to={HOME_PATH} />;
 };
 
 const useRoutesElements = () => {
@@ -92,22 +82,43 @@ const useRoutesElements = () => {
     },
     {
       path: PROFILE_PAGE,
-      element: <Profile />,
+      element: (
+        <MainLayout>
+          <Profile />
+        </MainLayout>
+      ),
     },
 
     {
       path: HOME_PATH,
-      element: <HomePage />,
+      element: <RejectedRouters />,
+      children: [
+        {
+          index: true,
+          element: (
+            <MainLayout>
+              <HomePage />
+            </MainLayout>
+          ),
+        },
+      ],
     },
 
     {
       path: AUTH_PATH,
-      element: <RegisterForm />,
+      element: <RejectedRouters />,
+      children: [
+        {
+          index: true,
+          element: <RegisterForm />,
+        },
+      ],
     },
     {
       path: TICKET_BOOKING_SEGMENT,
       element: <BookingTicket />,
     },
+
     {
       path: THEATER_DETAIL_SEGMENT,
       element: <RoomSeatList />,

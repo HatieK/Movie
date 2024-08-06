@@ -14,12 +14,38 @@ import { AUTH_PATH, HOME_PATH } from "../../constants/path";
 
 const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
   const navigate = useNavigate();
-  const { seatList, infoTotalSeatList, isInitialLoad, currentApiKey } =
-    useSelector((state) => state.bookingRoom);
-
+  const { seatList, infoTotalSeatList, currentApiKey } = useSelector(
+    (state) => state.bookingRoom
+  );
   const { currentUser } = useSelector((state) => state.authenticUser);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [booking, setBooking] = useState([]);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    const storedData = getLocalStorage("seatList");
+    if (storedData && storedData.apiKey === slug) {
+      dispatch(
+        loadFromLocalStorage({
+          apiKey: storedData.apiKey,
+          data: storedData.data,
+        })
+      );
+    }
+    setLoading(false); // Assuming data load is complete here
+    return () => {
+      dispatch(resetState("RESET-STATE"));
+    };
+  }, [dispatch, slug]);
+
+  useEffect(() => {
+    if (currentUser === null && !hasError) {
+      message.error("BẠN CHƯA CÓ TÀI KHOẢN, VUI LÒNG ĐĂNG NHẬP");
+      setHasError(true);
+    }
+  }, [currentUser, hasError]);
 
   const handleOk = () => {
     message.success("ĐẶT VÉ THÀNH CÔNG");
@@ -43,28 +69,15 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
       data: updateBooking,
     });
   };
-  useEffect(() => {
-    const storedData = getLocalStorage("seatList");
-    if (storedData && storedData.apiKey === slug) {
-      dispatch(
-        loadFromLocalStorage({
-          apiKey: storedData.apiKey,
-          data: storedData.data,
-        })
-      );
-    }
-    return () => {
-      dispatch(resetState("RESET-STATE"));
-    };
-  }, [dispatch, isInitialLoad, slug]);
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const [booking, setBooking] = useState([]);
 
-  if (!Array.isArray(infoTotalSeatList)) {
+  if (!Array.isArray(infoTotalSeatList) || loading) {
     return null; // or render a fallback UI
   }
+
   const groupSeatsWithLabels = (seats) => {
     const rows = [];
     const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -78,23 +91,18 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
 
   const rows = groupSeatsWithLabels(infoTotalSeatList);
 
-  let renderSeatList = seatList.map((item) => `${item.row}-${item.tenGhe}`);
-
+  const renderSeatList = seatList.map((item) => `${item.row}-${item.tenGhe}`);
   const final = renderSeatList.join(" | ");
-
-  let totalPrice = seatList.reduce((total, currentValue) => {
-    return (total += currentValue.giaVe);
-  }, 0);
-
+  const totalPrice = seatList.reduce(
+    (total, currentValue) => total + currentValue.giaVe,
+    0
+  );
   const idSeat = seatList.map((item) => item.tenGhe);
 
   const handleBookSeat = (detailRow, seatId) => {
     const index = rows.findIndex((item) => item.label === detailRow);
     const findSeat = rows[index].seats.find((item) => item.tenGhe === seatId);
-    const newFindSeat = {
-      ...findSeat,
-      row: detailRow,
-    };
+    const newFindSeat = { ...findSeat, row: detailRow };
     dispatch(getDetailSeat(newFindSeat));
 
     if (idSeat.includes(seatId)) {
@@ -109,27 +117,24 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
   };
 
   if (currentUser === null) {
-    message.error("BẠN CHƯA CÓ TÀI KHOẢN, VUI LÒNG ĐĂNG NHẬP");
-  } else if (currentUser === "KhachHang") {
+    return <Navigate to={AUTH_PATH} />;
   }
+
   return (
     <>
-      {rows.map((row, index) => (
-        <div key={index} className="row">
+      {rows.map((row) => (
+        <div key={row.label} className="row">
           <div className="row-label">{row.label}</div>
-          {row.seats.map((seat) => {
-            return (
-              <div className="row-seat">
-                <SeatButtonActive
-                  key={seat.maGhe}
-                  handleBookSeat={handleBookSeat}
-                  seat={seat}
-                  row={row}
-                  booking={booking}
-                />
-              </div>
-            );
-          })}
+          {row.seats.map((seat) => (
+            <div key={seat.maGhe} className="row-seat">
+              <SeatButtonActive
+                handleBookSeat={handleBookSeat}
+                seat={seat}
+                row={row}
+                booking={booking}
+              />
+            </div>
+          ))}
         </div>
       ))}
       <div className="type-seat">
@@ -178,7 +183,7 @@ const SeatGrid = ({ nameMovie, nameTheater, numberTheater, slug }) => {
                 <div className="bill-button">
                   <Button
                     variant="btn--primary"
-                    onClick={() => handleCompleteBookingTicket()}
+                    onClick={handleCompleteBookingTicket}
                   >
                     <img src="../public/img/ic-ticket.svg" alt="cine-start" />
                     <span>Đặt vé ngay</span>

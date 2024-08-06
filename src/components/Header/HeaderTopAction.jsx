@@ -6,7 +6,6 @@ import { HOME_PATH } from "../../constants/path";
 const HeaderTopAction = () => {
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log("🚀333---->", 333);
     navigate(`${HOME_PATH}#navigate-wrap`);
   };
 

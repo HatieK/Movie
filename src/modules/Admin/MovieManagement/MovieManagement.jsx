@@ -36,6 +36,7 @@ const MovieManagement = () => {
   const { mutate: handleAddMovieApi, isPending: isCreating } = useMutation({
     mutationFn: (payload) => movieApi.addMovie(payload),
     onSuccess: (data) => {
+      queryClient.invalidateQueries();
       message.success("Thêm Phim Thành Công");
       closeModal();
     },
@@ -48,7 +49,7 @@ const MovieManagement = () => {
   const { mutate: handleDeleteMovieApi, isPending: isDeleting } = useMutation({
     mutationFn: (idMovie) => movieApi.deleteMovie(idMovie),
     onSuccess: () => {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: ["list-movies", { currentPage }],
         type: "active",
       });
@@ -213,7 +214,7 @@ const MovieManagement = () => {
       "ngayKhoiChieu",
       dayjs(new Date(formValues.ngayKhoiChieu)).format("DD/MM/YYYY")
     );
-    formData.append("maNhom", "GP01");
+    formData.append("maNhom", "GP03");
     handleAddMovieApi(formData);
   };
 

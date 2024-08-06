@@ -24,7 +24,6 @@ const schema = yup.object({
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const {
@@ -48,6 +47,7 @@ const LoginForm = () => {
       setLocalStorage("user", response);
       dispatch(setUsers(response));
       message.success("Đăng Nhập Thành Công");
+      navigate(HOME_PATH);
     },
     onError: (error) => {
       console.log("🚀error---->", error);

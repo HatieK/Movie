@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "../Button";
 import { useDispatch, useSelector } from "react-redux";
-import { TICKET_BOOKING_PATH } from "../../constants/path";
+import { HOME_PATH, TICKET_BOOKING_PATH } from "../../constants/path";
 import { showMovieDetail } from "../../redux/slices/dataMovie";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { message } from "antd";
 
 const CardFilm = ({ dataCardFilm }) => {
@@ -13,8 +13,6 @@ const CardFilm = ({ dataCardFilm }) => {
   const handleBookingTicket = (movieId) => {
     if (currentUser) {
       dispatch(showMovieDetail(movieId));
-    } else {
-      message.error("BẠN CHƯA CÓ TÀI KHOẢN VUI LÒNG ĐĂNG NHẬP");
     }
   };
   const detailMovie = TICKET_BOOKING_PATH + `/${dataCardFilm.maPhim}`;

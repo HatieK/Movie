@@ -1,5 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { Breadcrumb, Button, Pagination, Table, Tag } from "antd";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Breadcrumb,
+  Button,
+  message,
+  Pagination,
+  Popconfirm,
+  Table,
+  Tag,
+} from "antd";
 import React, { useState } from "react";
 import { adminUser } from "../../../apis/adminUser";
 import { PAGE_SIZE, USER_TYPES_MAPPING } from "../../../constants/general";
@@ -11,6 +19,7 @@ const UserManagement = () => {
   const { isOpen, openModal, closeModal } = useOpenModal();
   const [dataEdit, setDataEdit] = useState(undefined);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const queryClient = useQueryClient();
   const {
     data: userData,
     isLoading,
@@ -18,6 +27,21 @@ const UserManagement = () => {
   } = useQuery({
     queryKey: ["list-users", { currentPage, pageSize }],
     queryFn: () => adminUser.getListUser({ page: currentPage, pageSize }),
+  });
+
+  const { mutate: handleDeleteUser, isPending: isDeleting } = useMutation({
+    mutationFn: (username) => {
+      return adminUser.deleteUser(username);
+    },
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["list-users", { currentPage }],
+        type: "active",
+      });
+    },
+    onError: (error) => {
+      console.log("error", error);
+    },
   });
 
   const columns = [
@@ -65,13 +89,19 @@ const UserManagement = () => {
             >
               Edit
             </Button>
-            <Button
-              type="primary"
-              danger
-              onClick={() => alert(record.taiKhoan)}
+            <Popconfirm
+              title="Delete user"
+              description="Are you sure to delete this user?"
+              onConfirm={() => handleDeleteUser(record.taiKhoan.toString())}
+              onCancel={() => {}}
+              placement="bottom"
+              okText="Yes"
+              cancelText="No"
             >
-              Delete
-            </Button>
+              <Button type="primary" danger disabled={isDeleting}>
+                Delete
+              </Button>
+            </Popconfirm>
           </div>
         );
       },

@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { Button, Col, Form, Input, message, Modal, Row, Select } from "antd";
 import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -8,7 +8,7 @@ import {
   minLength,
 } from "../../../constants/general";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { adminUser } from "../../../apis/adminUser";
 
 const schema = yup.object({
@@ -39,6 +39,8 @@ const schema = yup.object({
 });
 
 const AddOrEditModal = ({ isOpen, onCloseModal, dataEdit }) => {
+  const queryClient = useQueryClient();
+
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const {
     control,
@@ -66,7 +68,7 @@ const AddOrEditModal = ({ isOpen, onCloseModal, dataEdit }) => {
       setValue("email", dataEdit.email);
       setValue("soDt", dataEdit.soDt);
       setValue("matKhau", dataEdit.matKhau);
-      setValue("maNhom", "GP01");
+      setValue("maNhom", "GP03");
       setValue("maLoaiNguoiDung", dataEdit.maLoaiNguoiDung);
     }
   }, [dataEdit]);
@@ -80,12 +82,27 @@ const AddOrEditModal = ({ isOpen, onCloseModal, dataEdit }) => {
   const mutation = useMutation({
     mutationFn: (payload) => adminUser.addUser(payload),
     onSuccess: (response) => {
-      console.log("🚀response---->", response);
+      queryClient.invalidateQueries();
+      message.success("Thêm User Thành Công");
+    },
+  });
+
+  const mutationEdit = useMutation({
+    mutationFn: (payload) => adminUser.editUser(payload),
+    onSuccess: (response) => {
+      queryClient.invalidateQueries();
+      message.success("Edit thành công");
     },
   });
 
   const onSubmit = (formValues) => {
-    mutation.mutate(formValues);
+    if (dataEdit) {
+      mutationEdit.mutate(formValues);
+      onCloseModal();
+    } else {
+      mutation.mutate(formValues);
+      onCloseModal();
+    }
   };
   return (
     <div>
@@ -103,6 +120,7 @@ const AddOrEditModal = ({ isOpen, onCloseModal, dataEdit }) => {
                     placeholder="Vui Lòng Nhập Tài Khoản"
                     type="text"
                     status={errors.taiKhoan ? "error" : ""}
+                    disabled={dataEdit ? true : false}
                   />
                 )}
               />
