@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleShowNavbar } from "../../redux/slices/showHamburger";
 import HeaderMobile from "../HeaderMobile";
 import { Link } from "react-router-dom";
-import { THEATER_DETAIL } from "../../constants/path";
+import { HOME_PATH, THEATER_DETAIL } from "../../constants/path";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Header = () => {
         <div className="header-top">
           <div className="container">
             <div className="header-top-wrap">
-              <Link to="" className="main-logo">
+              <Link to={HOME_PATH} className="main-logo">
                 <img
                   src="../../../public/img/header-logo.webp"
                   alt="cine start"

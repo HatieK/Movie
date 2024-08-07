@@ -41,7 +41,11 @@ const LoginForm = () => {
 
   const [passwordVisible, setPasswordVisible] = React.useState(false);
 
-  const { mutate: handleLogin, isPending } = useMutation({
+  const {
+    mutate: handleLogin,
+    isPending,
+    error: errorLogin,
+  } = useMutation({
     mutationFn: (payload) => authenticationApi.login(payload),
     onSuccess: (response) => {
       setLocalStorage("user", response);
@@ -49,8 +53,8 @@ const LoginForm = () => {
       message.success("Đăng Nhập Thành Công");
       navigate(HOME_PATH);
     },
-    onError: (error) => {
-      console.log("🚀error---->", error);
+    onError: (response) => {
+      message.error(response || "Đăng Nhập Thất Bại");
     },
   });
 
@@ -112,7 +116,11 @@ const LoginForm = () => {
         {errors?.password && (
           <p className="text-danger">{errors?.password.message}</p>
         )}
-        <Button htmlType="submit" className="btn btn-register">
+        <Button
+          htmlType="submit"
+          className="btn btn-register"
+          style={{ marginTop: 20 }}
+        >
           ĐĂNG NHẬP
         </Button>
       </div>

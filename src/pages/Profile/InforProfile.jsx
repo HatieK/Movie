@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { profileUser } from "../../apis/profileUserApi";
 import { registerApi } from "../../apis/authen.user";
 import { adminUser } from "../../apis/adminUser";
+import { updateAccountUser } from "../../apis/editUser";
 
 const schema = yup.object({
   email: yup
@@ -52,10 +53,6 @@ const InforProfile = () => {
       email: dataInfoUser?.email || "",
       phone: dataInfoUser?.soDT || "",
       password: dataInfoUser?.password || "",
-      name: "",
-      email: "",
-      phone: "",
-      password: "",
     },
     resolver: yupResolver(schema),
     criteriaMode: "all",
@@ -70,9 +67,12 @@ const InforProfile = () => {
   });
 
   const mutationEdit = useMutation({
-    mutationFn: (payload) => adminUser.editUser(payload),
+    mutationFn: (payload) => updateAccountUser.editUser(payload),
     onSuccess: (response) => {
       message.success("Edit thành công");
+    },
+    onError: (error) => {
+      message.error("");
     },
   });
 
@@ -85,6 +85,7 @@ const InforProfile = () => {
       soDt: phone,
       maNhom: "GP03",
       hoTen: name,
+      maLoaiNguoidung: "KhachHang",
     };
     mutationEdit.mutate(payload);
   };
@@ -100,7 +101,11 @@ const InforProfile = () => {
   }, [dataInfoUser, setValue]);
 
   return (
-    <Form className="form" onFinish={handleSubmit(onSubmit)}>
+    <Form
+      className="form"
+      style={{ paddingTop: "20px", paddingBottom: "20px" }}
+      onFinish={handleSubmit(onSubmit)}
+    >
       <div className="form-group">
         <label className="form-label " htmlFor="name">
           Name
@@ -199,7 +204,9 @@ const InforProfile = () => {
         )}
       </div>
 
-      <Button htmlType="submit">CẬP NHẬT</Button>
+      <Button htmlType="submit" style={{ marginTop: "15px" }}>
+        CẬP NHẬT
+      </Button>
     </Form>
   );
 };

@@ -110,18 +110,30 @@ const useRoutesElements = () => {
       children: [
         {
           index: true,
-          element: <RegisterForm />,
+          element: (
+            <MainLayout>
+              <RegisterForm />,
+            </MainLayout>
+          ),
         },
       ],
     },
     {
       path: TICKET_BOOKING_SEGMENT,
-      element: <BookingTicket />,
+      element: (
+        <MainLayout>
+          <BookingTicket />,
+        </MainLayout>
+      ),
     },
 
     {
       path: THEATER_DETAIL_SEGMENT,
-      element: <RoomSeatList />,
+      element: (
+        <MainLayout>
+          <RoomSeatList />
+        </MainLayout>
+      ),
     },
   ]);
 

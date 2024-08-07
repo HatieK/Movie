@@ -22,6 +22,19 @@ import {
 import { FC, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import localeData from "dayjs/plugin/localeData";
+import weekday from "dayjs/plugin/weekday";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import weekYear from "dayjs/plugin/weekYear";
+
+dayjs.extend(customParseFormat);
+dayjs.extend(advancedFormat);
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(weekOfYear);
+dayjs.extend(weekYear);
 
 const schema = yup.object({
   tenPhim: yup
@@ -82,15 +95,21 @@ const AddOrEditMovieModal = ({
 
   useEffect(() => {
     if (dataEdit) {
+      setValue("maPhim", dataEdit.maPhim.toString());
       setValue("tenPhim", dataEdit.tenPhim);
       setValue("trailer", dataEdit.tenPhim);
       setValue("moTa", dataEdit.moTa);
       setValue("trangThai", dataEdit.dangChieu);
       setValue("hot", dataEdit.hot);
       setValue("danhGia", dataEdit.danhGia.toString());
-      setValue("ngayKhoiChieu", dayjs(new Date(dataEdit.ngayKhoiChieu)));
+      setValue(
+        "ngayKhoiChieu",
+        dataEdit.ngayKhoiChieu
+          ? dayjs(new Date(dataEdit.ngayKhoiChieu)).format("YYYY-MM-DD")
+          : null
+      );
     }
-  }, [dataEdit]);
+  }, [dataEdit, setValue]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -233,6 +252,12 @@ const AddOrEditMovieModal = ({
                   format={"DD/MM/YYYY"}
                   status={errors.ngayKhoiChieu ? "error" : ""}
                   disabledDate={!statusMovie ? disabledDate : undefined}
+                  value={field.value ? dayjs(field.value) : null}
+                  onChange={(date) => {
+                    return field.onChange(
+                      date ? dayjs(date).format("MM/DD/YYYY") : null
+                    );
+                  }}
                 />
               )}
             />

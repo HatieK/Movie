@@ -19,11 +19,9 @@ import {
 } from "antd";
 import { useListMovies } from "../../../hooks/useListMovies";
 import { format } from "date-fns";
-import { Controller, useForm } from "react-hook-form";
 import { movieApi } from "../../../apis/adminMovie";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import dayjs from "dayjs";
 import AddOrEditMovieModal from "./AddOrEditMovieModal";
 
 const MovieManagement = () => {
@@ -31,6 +29,8 @@ const MovieManagement = () => {
   const [dataEdit, setDataEdit] = useState(undefined);
   const { isOpen, openModal, closeModal } = useOpenModal();
   const { data, isLoading, error } = useListMovies(currentPage);
+
+  const queryClient = useQueryClient();
 
   // ADD MOVIE
   const { mutate: handleAddMovieApi, isPending: isCreating } = useMutation({
@@ -47,7 +47,9 @@ const MovieManagement = () => {
 
   //DELETE MOVIE
   const { mutate: handleDeleteMovieApi, isPending: isDeleting } = useMutation({
-    mutationFn: (idMovie) => movieApi.deleteMovie(idMovie),
+    mutationFn: (idMovie) => {
+      return movieApi.deleteMovie(idMovie);
+    },
     onSuccess: () => {
       queryClient.refetchQueries({
         queryKey: ["list-movies", { currentPage }],
@@ -58,6 +60,22 @@ const MovieManagement = () => {
     },
     onError: (error) => {
       console.log("error", error);
+    },
+  });
+
+  //EDIT MOVIE
+  const { mutate: handleEditMovieApi, isPending: isEditing } = useMutation({
+    mutationFn: (payload) => movieApi.editMovie(payload),
+    onSuccess: (data) => {
+      queryClient.refetchQueries({
+        queryKey: ["list-movies", { currentPage }],
+        type: "active",
+      });
+      message.success("Edit Thành Công");
+      closeModal();
+    },
+    onError: (error) => {
+      message.error("Edit Không Thành Công");
     },
   });
 
@@ -106,7 +124,7 @@ const MovieManagement = () => {
       render: (date) => {
         const dateObject = new Date(date);
         if (!isNaN(dateObject)) {
-          const formattedDate = format(dateObject, "dd/MM/yyyy hh:mm a");
+          const formattedDate = format(dateObject, "MM/dd/yyyy hh:mm a");
           return <Typography>{formattedDate}</Typography>;
         } else {
           console.error("Ngày giờ không hợp lệ");
@@ -210,12 +228,17 @@ const MovieManagement = () => {
     formData.append("hot", formValues.hot.toString());
     formData.append("dangChieu", formValues.trangThai ? "true" : "false");
     formData.append("sapChieu", formValues.trangThai ? "false" : "true");
-    formData.append(
-      "ngayKhoiChieu",
-      dayjs(new Date(formValues.ngayKhoiChieu)).format("DD/MM/YYYY")
-    );
+    formData.append("ngayKhoiChieu", formValues.ngayKhoiChieu);
     formData.append("maNhom", "GP03");
-    handleAddMovieApi(formData);
+
+    if (dataEdit) {
+      formData.append("maPhim", dataEdit.maPhim.toString());
+      handleEditMovieApi(formData);
+    } else {
+      handleAddMovieApi(formData);
+    }
+    // handleAddMovieApi(formData);
+    // dataEdit ? handleEditMovieApi(formData) : handleAddMovieApi(formData);
   };
 
   if (!isLoading && error) {
@@ -270,7 +293,7 @@ const MovieManagement = () => {
       <AddOrEditMovieModal
         dataEdit={dataEdit}
         isOpen={isOpen}
-        isPending={isCreating}
+        isPending={isCreating || isEditing}
         onCloseModal={closeModal}
         onSubmit={handleSubmit}
       />

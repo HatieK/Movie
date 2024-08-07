@@ -40,11 +40,27 @@ export const movieApi = {
   deleteMovie: async (idMovie) => {
     try {
       const response = await fetcher.delete(
-        `/QuanLyPhim/XoaPhim?MaPhim=${idMovie}`
+        `/QuanLyPhim/XoaPhim?MaPhim=${Number(idMovie)}`
       );
       return response.data.content;
     } catch (error) {
       throw Error(error.response.data.content);
+    }
+  },
+  editMovie: async (payload) => {
+    try {
+      const response = await fetcher.post(
+        "/QuanLyPhim/CapNhatPhimUpload",
+        payload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data.content;
+    } catch (error) {
+      console.log("🚀error---->", error);
     }
   },
 };

@@ -15,7 +15,7 @@ const Profile = () => {
     },
     {
       key: "2",
-      label: "LỊCH SỮ ĐẶT VÉ",
+      label: "LỊCH SỬ ĐẶT VÉ",
       children: <HistoricalBooking />,
     },
   ];
