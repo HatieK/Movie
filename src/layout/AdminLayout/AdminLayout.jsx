@@ -56,12 +56,7 @@ const AdminLayout = ({ children }) => {
             justifyContent: "center",
           }}
         >
-          <img
-            src="../../../public/img/header-logo.webp"
-            width={120}
-            height={60}
-            alt=""
-          />
+          <img src="/img/header-logo.webp" width={120} height={60} alt="" />
         </div>
         <Menu
           theme="dark"
@@ -120,7 +115,7 @@ const AdminLayout = ({ children }) => {
           >
             <a onClick={(e) => e.preventDefault()}>
               <Space>
-                <img src="../../../public/img/ic-header-auth.svg" alt="" />
+                <img src="/img/ic-header-auth.svg" alt="" />
                 <p className="authentic-user">{currentUser.taiKhoan}</p>
                 <DownOutlined />
               </Space>

@@ -35,10 +35,7 @@ const Header = () => {
             <div className="header-mobile">
               <div className="header-mobile-wrap">
                 <a href="" className="main-logo">
-                  <img
-                    src="../../../public/img/header-logo.webp"
-                    alt="cine start"
-                  />
+                  <img src="/img/header-logo.webp" alt="cine start" />
                 </a>
 
                 <div className="mobile-burger" style={{ color: "red" }}>

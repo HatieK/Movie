@@ -43,7 +43,7 @@ const CardFilm = ({ dataCardFilm }) => {
             <li className="title">
               <a href="" className="title-link">
                 <span className="ic">
-                  <img src="../../../public/img/icon-clock.svg" alt="" />
+                  <img src="/img/icon-clock.svg" alt="" />
                 </span>
                 <span className="title-name">120'</span>
               </a>
@@ -58,7 +58,7 @@ const CardFilm = ({ dataCardFilm }) => {
         <div className="info-action">
           <a href={dataCardFilm.trailer} className="action-watch">
             <span className="ic">
-              <img src="../../../public/img/icon-play-vid.svg" alt="" />
+              <img src="/img/icon-play-vid.svg" alt="" />
             </span>
             <Link to={dataCardFilm.trailer}>
               <span className="txt">Xem Trailer</span>

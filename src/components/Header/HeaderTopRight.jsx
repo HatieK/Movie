@@ -55,10 +55,7 @@ const HeaderTopRight = () => {
       {/* HEADER SEARCH */}
       <div className="header-top-search">
         <div className="header-search">
-          <img
-            src="../../../public/img/ic-header-search.svg"
-            alt="cine start"
-          />
+          <img src="/img/ic-header-search.svg" alt="cine start" />
         </div>
       </div>
       {/* HEADER AUTH */}
@@ -67,7 +64,7 @@ const HeaderTopRight = () => {
           {currentUser === null ? (
             <>
               <div className="auth-ava">
-                <img src="../../../public/img/ic-header-auth.svg" alt="" />
+                <img src="/img/ic-header-auth.svg" alt="" />
               </div>
               <div className="auth-text">
                 <Button onClick={showModal}>Đăng Nhập</Button>
@@ -100,7 +97,7 @@ const HeaderTopRight = () => {
             >
               <a onClick={(e) => e.preventDefault()}>
                 <Space>
-                  <img src="../../../public/img/ic-header-auth.svg" alt="" />
+                  <img src="/img/ic-header-auth.svg" alt="" />
                   <p className="authentic-user">{currentUser.taiKhoan}</p>
                   <DownOutlined />
                 </Space>
@@ -112,7 +109,7 @@ const HeaderTopRight = () => {
       <div className="header-mobile">
         <div className="header-mobile-wrap">
           <a href="" className="main-logo">
-            <img src="../../../public/img/header-logo.webp" alt="cine start" />
+            <img src="/img/header-logo.webp" alt="cine start" />
           </a>
 
           <div className="mobile-hamburger"></div>

@@ -7,11 +7,7 @@ const RegisterForm = () => {
       <div className="container">
         <div className="register-modal">
           <div className="register-modal-content">
-            <img
-              src="../../../public/img/header-logo.webp"
-              className="register-logo"
-              alt=""
-            />
+            <img src="/img/header-logo.webp" className="register-logo" alt="" />
             <h2 className="register-title">
               Đăng Ký Để Được Cập Nhật Các Chương Trình Khuyến Mãi Mới Nhất
             </h2>

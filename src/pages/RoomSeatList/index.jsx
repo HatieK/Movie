@@ -41,7 +41,7 @@ const RoomSeatList = () => {
       <div className="seat-list">
         <h2 className="heading">CHỌN GHẾ -</h2>
         <div className="seat-screen">
-          <img src="../../../public/img/img-screen.png" alt="" />
+          <img src="/img/img-screen.png" alt="" />
           <p>Màn Hình</p>
         </div>
         {detailTheaterLoading && <ComponentLoading />}

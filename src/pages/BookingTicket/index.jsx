@@ -123,19 +123,13 @@ const BookingTicket = () => {
                       <ul className="info-detail">
                         <li className="info-item">
                           <span className="ic">
-                            <img
-                              src="../../../public/img/icon-tag.svg"
-                              alt=""
-                            />
+                            <img src="/img/icon-tag.svg" alt="" />
                           </span>
                           <span className="txt">Hoạt Hình</span>
                         </li>
                         <li className="info-item">
                           <span className="ic">
-                            <img
-                              src="../../../public/img/icon-clock.svg"
-                              alt=""
-                            />
+                            <img src="/img/icon-clock.svg" alt="" />
                           </span>
                           <span className="txt">182'</span>
                         </li>
@@ -168,10 +162,7 @@ const BookingTicket = () => {
                             className="booking action-watch"
                           >
                             <span className="ic">
-                              <img
-                                src="../../../public/img/icon-play-vid.svg"
-                                alt=""
-                              />
+                              <img src="/img/icon-play-vid.svg" alt="" />
                             </span>
                             <Link to={dataMovieDetail.trailer}>
                               <span className="text">Xem Trailer</span>
@@ -204,10 +195,7 @@ const BookingTicket = () => {
                   <div className="info-action">
                     <a href="" className="booking action-watch">
                       <span className="ic">
-                        <img
-                          src="../../../public/img/icon-play-vid.svg"
-                          alt=""
-                        />
+                        <img src="/img/icon-play-vid.svg" alt="" />
                       </span>
                       <span className="text">Xem Trailer</span>
                     </a>
