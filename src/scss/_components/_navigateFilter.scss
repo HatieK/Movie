@@ -64,11 +64,11 @@
 
 
     .ant-select-selection-item {
-      color: $purple-text;
-      font-family: $font-antons;
-      text-align: center;
-      letter-spacing: 1px;
-      padding-inline-end: 0px;
+      color: $purple-text !important;
+      font-family: $font-antons !important;
+      text-align: center !important;
+      letter-spacing: 1px !important;
+      padding-inline-end: 0px !important;
     }
 
     .ant-select-selection-search-input {
