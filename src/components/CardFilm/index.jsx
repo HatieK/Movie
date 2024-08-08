@@ -31,7 +31,7 @@ const CardFilm = ({ dataCardFilm }) => {
             <li className="title">
               <a href="" className="title-link">
                 <span className="ic">
-                  <img src="../../../public/img/icon-tag.svg" alt="" />
+                  <img src="/img/icon-tag.svg" alt="" />
                 </span>
                 {dataCardFilm.dangChieu === true ? (
                   <span className="title-name">Phim Sắp Chiếu</span>
