@@ -14,7 +14,7 @@ const Footer = () => {
               <a href="#">
                 <img
                   className="footer-logo"
-                  src="../../img/header-logo.webp"
+                  src="/img/header-logo.webp"
                   alt=""
                 />
               </a>
@@ -22,16 +22,16 @@ const Footer = () => {
               <HeaderTopAction />
               <div className="footer-social__list">
                 <a className="social-link" href="">
-                  <img src="../../img/footer-facebook.svg" alt="facebook" />
+                  <img src="/img/footer-facebook.svg" alt="facebook" />
                 </a>
                 <a className="social-link" href="">
-                  <img src="../../img/footer-youtube.svg" alt="youtube" />
+                  <img src="/img/footer-youtube.svg" alt="youtube" />
                 </a>
                 <a className="social-link" href="">
-                  <img src="../../img/ic-tittok.svg" alt="tiktok" />
+                  <img src="/img/ic-tittok.svg" alt="tiktok" />
                 </a>
                 <a className="social-link" href="">
-                  <img src="../../img/ic-zl-white.svg" alt="zalo" />
+                  <img src="/img/ic-zl-white.svg" alt="zalo" />
                 </a>
               </div>
             </Row>

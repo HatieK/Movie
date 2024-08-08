@@ -289,7 +289,7 @@ const HomePage = () => {
                 onClick={() => handleBookingTicket()}
                 to={disableButton ? detailMovie : ""}
               >
-                <img src="../public/img/ic-ticket.svg" alt="cine-start" />
+                <img src="/img/ic-ticket.svg" alt="cine-start" />
                 <span>Đặt vé ngay</span>
               </Button>
             </Col>
