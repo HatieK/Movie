@@ -12,7 +12,7 @@ const HeaderTopAction = () => {
   return (
     <div className="header-top-actions">
       <Button link="#" onClick={handleClick} variant="btn--yellow">
-        <img src="../public/img/ic-ticket.svg" alt="cine-start" />
+        <img src="/img/ic-ticket.svg" alt="cine-start" />
         <span>Đặt vé ngay</span>
       </Button>
     </div>
