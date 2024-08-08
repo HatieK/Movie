@@ -36,7 +36,10 @@ const MovieManagement = () => {
   const { mutate: handleAddMovieApi, isPending: isCreating } = useMutation({
     mutationFn: (payload) => movieApi.addMovie(payload),
     onSuccess: (data) => {
-      queryClient.invalidateQueries();
+      queryClient.refetchQueries({
+        queryKey: ["list-movies", { currentPage }],
+        type: "active",
+      });
       message.success("Thêm Phim Thành Công");
       closeModal();
     },
@@ -124,7 +127,7 @@ const MovieManagement = () => {
       render: (date) => {
         const dateObject = new Date(date);
         if (!isNaN(dateObject)) {
-          const formattedDate = format(dateObject, "MM/dd/yyyy hh:mm a");
+          const formattedDate = format(dateObject, "yyyy/MM/dd hh:mm a");
           return <Typography>{formattedDate}</Typography>;
         } else {
           console.error("Ngày giờ không hợp lệ");

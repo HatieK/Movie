@@ -249,15 +249,13 @@ const AddOrEditMovieModal = ({
                   size="large"
                   className="mt-1 w-full"
                   placeholder="DD/MM/YYYY"
-                  format={"DD/MM/YYYY"}
+                  format={"YYYY-MM-DD"}
                   status={errors.ngayKhoiChieu ? "error" : ""}
                   disabledDate={!statusMovie ? disabledDate : undefined}
                   value={field.value ? dayjs(field.value) : null}
-                  onChange={(date) => {
-                    return field.onChange(
-                      date ? dayjs(date).format("MM/DD/YYYY") : null
-                    );
-                  }}
+                  onChange={(date) =>
+                    field.onChange(date ? date.format("YYYY-MM-DD") : null)
+                  }
                 />
               )}
             />

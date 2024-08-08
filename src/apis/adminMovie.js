@@ -24,7 +24,7 @@ export const movieApi = {
   addMovie: async (payload) => {
     try {
       const response = await fetcher.post(
-        "/QuanLyPhim/ThemPhimUpLoadHinh",
+        "/QuanLyPhim/ThemPhimUploadHinh",
         payload,
         {
           headers: {
