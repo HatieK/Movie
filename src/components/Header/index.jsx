@@ -28,10 +28,7 @@ const Header = () => {
           <div className="container">
             <div className="header-top-wrap">
               <Link to={HOME_PATH} className="main-logo">
-                <img
-                  src="../../../public/img/header-logo.webp"
-                  alt="cine start"
-                />
+                <img src="/img/header-logo.webp" alt="cine start" />
               </Link>
               <HeaderTopRight />
             </div>
