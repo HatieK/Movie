@@ -549,12 +549,12 @@ body .container-mobile {
   font-size: 1.6rem;
 }
 
-:where(.css-dev-only-do-not-override-zg0ahe).ant-modal .ant-modal-header {
+l .ant-modal-header {
   text-align: center;
   background: transparent;
 }
 
-:where(.css-dev-only-do-not-override-zg0ahe).ant-modal .ant-modal-content {
+l .ant-modal-content {
   background-image: linear-gradient(to bottom, rgba(20, 50, 93, 0.9), rgba(8, 22, 48, 0.9)) !important;
 }
 
@@ -828,21 +828,21 @@ body .container-mobile {
   color: #639;
   text-align: center;
 }
-.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+.navigate-wrap .ant-select-selector {
   border: none;
   background: #f8fafc;
   border: 1px solid #f3ea28;
   padding: 20px 0px;
   width: 14rem;
 }
-.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item {
-  color: #639 !important;
-  font-family: "Antons" !important;
-  text-align: center !important;
-  letter-spacing: 1px !important;
-  padding-inline-end: 0px !important;
+.navigate-wrap .ant-select-selector .ant-select-selection-item {
+  color: #639;
+  font-family: "Antons";
+  text-align: center;
+  letter-spacing: 1px;
+  padding-inline-end: 0px;
 }
-.navigate-wrap :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+.navigate-wrap .ant-select-selector .ant-select-selection-search-input {
   display: none;
 }
 .navigate-wrap .ant-select-arrow {
