@@ -555,7 +555,7 @@ l .ant-modal-header {
 }
 
 l .ant-modal-content {
-  background-image: linear-gradient(to bottom, rgba(20, 50, 93, 0.9), rgba(8, 22, 48, 0.9)) !important;
+  background-color: linear-gradient(to bottom, rgba(20, 50, 93, 0.9), rgba(8, 22, 48, 0.9)) !important;
 }
 
 .movie-heading {
@@ -1291,13 +1291,13 @@ l .ant-modal-content {
   }
 }
 
-:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content {
+.ant-modal .ant-modal-content {
   background: #5444aa !important;
 }
-:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content .ant-modal-header {
+.ant-modal .ant-modal-content .ant-modal-header {
   background: none;
 }
-:where(.css-dev-only-do-not-override-98ntnt).ant-modal .ant-modal-content .ant-modal-title {
+.ant-modal .ant-modal-content .ant-modal-title {
   text-align: center;
 }
 
