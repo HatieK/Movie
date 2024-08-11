@@ -55,7 +55,7 @@
     text-align: center;
   }
 
-  :where(.css-dev-only-do-not-override-98ntnt).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  .ant-select-selector {
     border: none;
     background: $white-text;
     border: 1px solid $yellow-text;
@@ -64,11 +64,11 @@
 
 
     .ant-select-selection-item {
-      color: $purple-text !important;
-      font-family: $font-antons !important;
-      text-align: center !important;
-      letter-spacing: 1px !important;
-      padding-inline-end: 0px !important;
+      color: $purple-text ;
+      font-family: $font-antons ;
+      text-align: center;
+      letter-spacing: 1px;
+      padding-inline-end: 0px;
     }
 
     .ant-select-selection-search-input {
