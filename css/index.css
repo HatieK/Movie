@@ -828,21 +828,21 @@ l .ant-modal-content {
   color: #639;
   text-align: center;
 }
-.navigate-wrap .ant-select-selector {
+.navigate-wrap #navigate-item-content .ant-select-selector {
   border: none;
   background: #f8fafc;
   border: 1px solid #f3ea28;
   padding: 20px 0px;
   width: 14rem;
 }
-.navigate-wrap .ant-select-selector .ant-select-selection-item {
+.navigate-wrap #navigate-item-content .ant-select-selector .ant-select-selection-item {
   color: #639;
   font-family: "Antons";
   text-align: center;
   letter-spacing: 1px;
   padding-inline-end: 0px;
 }
-.navigate-wrap .ant-select-selector .ant-select-selection-search-input {
+.navigate-wrap #navigate-item-content .ant-select-selector .ant-select-selection-search-input {
   display: none;
 }
 .navigate-wrap .ant-select-arrow {

@@ -211,7 +211,7 @@ const HomePage = () => {
         </Col>
         <div>
           <Row className="navigate-filter" gutter={[24, 24]}>
-            <Col className="navigate-filter-item">
+            <Col className="navigate-filter-item" id="navigate-item-content">
               <Select
                 showSearch
                 // searchValue="theater"
@@ -226,7 +226,7 @@ const HomePage = () => {
                 value={filterSelectList.movie.label}
               />
             </Col>
-            <Col className="navigate-filter-item">
+            <Col className="navigate-filter-item" id="navigate-item-content">
               {/* <ConfigProvider renderEmpty={() => "Phim Chưa Có Rạp Chiếu"}> */}
               <Select
                 showSearch
@@ -246,7 +246,7 @@ const HomePage = () => {
               />
               {/* </ConfigProvider> */}
             </Col>
-            <Col className="navigate-filter-item">
+            <Col className="navigate-filter-item" id="navigate-item-content">
               <ConfigProvider renderEmpty={() => "Phim Chưa Có Suất Chiếu"}>
                 <Select
                   showSearch
@@ -265,7 +265,7 @@ const HomePage = () => {
                 />
               </ConfigProvider>
             </Col>
-            <Col className="navigate-filter-item">
+            <Col className="navigate-filter-item" id="navigate-item-content">
               <Select
                 showSearch
                 placeholder="CHỌN SUẤT"

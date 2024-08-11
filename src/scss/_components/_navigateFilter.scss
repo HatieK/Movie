@@ -55,24 +55,27 @@
     text-align: center;
   }
 
-  .ant-select-selector {
-    border: none;
-    background: $white-text;
-    border: 1px solid $yellow-text;
-    padding: 20px 0px;
-    width: 14rem;
+  #navigate-item-content {
+
+    .ant-select-selector {
+      border: none;
+      background: $white-text;
+      border: 1px solid $yellow-text;
+      padding: 20px 0px;
+      width: 14rem;
 
 
-    .ant-select-selection-item {
-      color: $purple-text ;
-      font-family: $font-antons ;
-      text-align: center;
-      letter-spacing: 1px;
-      padding-inline-end: 0px;
-    }
+      .ant-select-selection-item {
+        color: $purple-text ;
+        font-family: $font-antons ;
+        text-align: center;
+        letter-spacing: 1px;
+        padding-inline-end: 0px;
+      }
 
-    .ant-select-selection-search-input {
-      display: none;
+      .ant-select-selection-search-input {
+        display: none;
+      }
     }
   }
 
@@ -86,3 +89,5 @@
     text-align: center;
   }
 }
+
+;
